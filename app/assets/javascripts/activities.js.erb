@@ -3,6 +3,7 @@ activityArray['childrenClasses'] = [];
 activityArray['devotionalMeetings'] = [];
 activityArray['juniorYouthGroups'] = [];
 activityArray['studyCircles'] = [];
+var activityKeys = Object.keys(activityArray);
 var tempActivity = [];
 var map;
 var newIcon = '<%= asset_path('info.png') %>';
@@ -102,17 +103,27 @@ function toggleMarkers(category) {
 
 function replaceTemporaryWithPermanentMarker() {
   var temporaryMarker = tempActivity.pop();
-  activityArray[activityKeys[activityCategory - 1]].push(temporaryMarker);
+  var activityCategory = $("#activity_activity_type_id").val();
+  var activityName = activityKeys[activityCategory - 1];
+  activityArray[activityName].push(temporaryMarker);
+  var activityCount = parseInt($("#" + activityName + "Count").html()) + 1;
+  $("#" + activityName + "Count").html(activityCount);
 }
 
 function changeIcon() {
   var temporaryMarker = tempActivity[0];
   var activityCategory = $("#activity_activity_type_id").val();
-  var activityKeys = Object.keys(activityArray);
-  temporaryMarker.setIcon(icons[activityKeys[activityCategory - 1]].icon);
+  if (activityCategory != "") {
+    temporaryMarker.setIcon(icons[activityKeys[activityCategory - 1]].icon);
+    $("#submitButton").prop('disabled', false);
+  } else {
+    temporaryMarker.setIcon(newIcon);
+    $("#submitButton").prop('disabled', true);
+  }
 }
 
 function cancelActivity() {
+  $("#submitButton").prop('disabled', true);
   $("#activityForm").hide();
   tempActivity.pop().setMap(null);
 }

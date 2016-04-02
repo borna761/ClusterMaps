@@ -1,9 +1,9 @@
 <div id="map"></div>
 <div id="activities">
-  <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')">Children's classes<br />
-  <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')">Devotional Meetings<br />
-  <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')">Junior Youth Groups<br />
-  <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')">Study Circles<br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')">Children's classes: <span id="childrenClassesCount"><%= @cc.count %></span><br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')">Devotional Meetings: <span id="devotionalMeetingsCount"><%= @dm.count %></span><br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')">Junior Youth Groups: <span id="juniorYouthGroupsCount"><%= @jy.count %></span><br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.count %></span><br />
 </div>
 <div id="activityForm">
   <%= render 'form' %>
