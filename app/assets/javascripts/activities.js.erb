@@ -5,24 +5,23 @@ activityArray['juniorYouthGroups'] = [];
 activityArray['studyCircles'] = [];
 var tempActivity = [];
 var map;
-var iconBase = 'assets/';
-var newIcon = iconBase + 'info';
+var newIcon = '<%= asset_path('info.png') %>';
 var icons = {
   childrenClasses: {
     name: 'Children\'s class',
-    icon: iconBase + 'childrenClasses.png'
+    icon: '<%= asset_path('childrenClasses.png') %>'
   },
   devotionalMeetings: {
     name: 'Devotional meeting',
-    icon: iconBase + 'devotionalMeetings.png'
+    icon: '<%= asset_path('devotionalMeetings.png') %>'
   },
   juniorYouthGroups: {
     name: 'Junior youth group',
-    icon: iconBase + 'juniorYouthGroups.png'
+    icon: '<%= asset_path('juniorYouthGroups.png') %>'
   },
   studyCircles: {
     name: 'Study circle',
-    icon: iconBase + 'studyCircles.png'
+    icon: '<%= asset_path('studyCircles.png') %>'
   }
 };
 
