@@ -5,24 +5,24 @@ activityArray['juniorYouthGroups'] = [];
 activityArray['studyCircles'] = [];
 var tempActivity = [];
 var map;
-var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-var newIcon = iconBase + 'info-i_maps.png';
+var iconBase = 'assets/';
+var newIcon = iconBase + 'info';
 var icons = {
   childrenClasses: {
     name: 'Children\'s class',
-    icon: iconBase + 'info-i_maps.png'
+    icon: iconBase + 'childrenClasses.png'
   },
   devotionalMeetings: {
     name: 'Devotional meeting',
-    icon: iconBase + 'library_maps.png'
+    icon: iconBase + 'devotionalMeetings.png'
   },
   juniorYouthGroups: {
     name: 'Junior youth group',
-    icon: iconBase + 'library_maps.png'
+    icon: iconBase + 'juniorYouthGroups.png'
   },
   studyCircles: {
     name: 'Study circle',
-    icon: iconBase + 'parking_lot_maps.png'
+    icon: iconBase + 'studyCircles.png'
   }
 };
 
@@ -80,6 +80,11 @@ function addMarkerFromClick(location) {
     icon: newIcon,
     map: map
   });
+  if (tempActivity.length > 0) {
+    var temporaryMarker = tempActivity.pop();
+    temporaryMarker.setMap(null);
+    $("#activity_activity_type_id").val("");
+  }
   tempActivity.push(marker);
   $("#activity_location").val(location);
   $("#activityForm").show();
@@ -98,10 +103,14 @@ function toggleMarkers(category) {
 
 function replaceTemporaryWithPermanentMarker() {
   var temporaryMarker = tempActivity.pop();
+  activityArray[activityKeys[activityCategory - 1]].push(temporaryMarker);
+}
+
+function changeIcon() {
+  var temporaryMarker = tempActivity[0];
   var activityCategory = $("#activity_activity_type_id").val();
   var activityKeys = Object.keys(activityArray);
   temporaryMarker.setIcon(icons[activityKeys[activityCategory - 1]].icon);
-  activityArray[activityKeys[activityCategory - 1]].push(temporaryMarker);
 }
 
 function cancelActivity() {

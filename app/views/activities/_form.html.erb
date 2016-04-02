@@ -2,7 +2,7 @@
   <%= f.hidden_field :location %>
   <div>
     <%= f.label 'Activity type' %>
-    <%= f.collection_select :activity_type_id, ActivityType.order(:name), :id, :name, {include_blank: false}, {class: 'form-field'} %>
+    <%= f.collection_select :activity_type_id, ActivityType.order(:name), :id, :name, {include_blank: true}, {class: 'form-field', onchange: 'javascript:changeIcon();'} %>
   </div>
   <div>
     <%= f.label 'Start date' %>
@@ -17,5 +17,5 @@
   <div>
 
   <%= f.submit 'Add activity' %>
-  <%= button_tag 'Cancel', :type => 'reset', :onclick => 'javascript:cancelActivity()' %>
+  <%= button_tag 'Cancel', :type => 'reset', :onclick => 'javascript:cancelActivity();' %>
 <% end %>
