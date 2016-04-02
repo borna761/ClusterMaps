@@ -1,0 +1,25 @@
+<div id="map"></div>
+<div id="activities">
+  <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')">Children's classes<br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')">Devotional Meetings<br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')">Junior Youth Groups<br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')">Study Circles<br />
+</div>
+<div id="activityForm">
+  <%= render 'form' %>
+</div>
+
+
+<div id="legend"></div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH3gr943zfhEw8Q9QACFjzFZyzilYVSgs&callback=initMap" async defer></script>
+<script>
+function setActivities() {
+  var activities = [];
+  <% @activities.each do |activity| %>
+    var newActivity = { position: new google.maps.LatLng<%= activity.location %>, type: '<%= activity.activity_type.icon %>' };
+    activities.push(newActivity);
+  <% end %>
+  return activities;
+}
+</script>

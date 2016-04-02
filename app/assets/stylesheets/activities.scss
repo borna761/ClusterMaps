@@ -1,0 +1,24 @@
+// Place all the styles related to the Activities controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#map {
+  float: left;
+  height: 800px;
+  width: 1400px;
+}
+#legend {
+  background: white;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+#activities {
+  float: left;
+  padding: 10px;
+  width: 450px;
+}
+
+#activityForm {
+  padding: 10px;
+  display: none;
+}
