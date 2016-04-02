@@ -2,6 +2,10 @@ class ActivitiesController < ApplicationController
   def index
     @activities = Activity.all
     @activity = Activity.new
+    @cc = ActivityType.find_by_name('Children\'s Class').activities
+    @dm = ActivityType.find_by_name('Devotional Meeting').activities
+    @jy = ActivityType.find_by_name('Junior Youth Group').activities
+    @sc = ActivityType.find_by_name('Study Circle').activities
   end
 
   def new

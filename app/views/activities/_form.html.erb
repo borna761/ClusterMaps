@@ -9,13 +9,17 @@
     <%= f.text_field :startDate %>
   </div>
   <div>
+    <%= f.label 'Host' %>
+    <%= f.text_field :hostedBy %>
+  </div>
+  <div>
     <%= f.label 'Participants' %>
-    <%= f.text_field :participants %>
+    <%= f.select :participants, (0..20) %>
   </div>
     <%= f.label 'Comments:' %>
     <%= f.text_area :comments, cols: 60, rows: 7 %>
   <div>
 
-  <%= f.submit 'Add activity' %>
+  <%= f.submit 'Add activity', disabled: true, id: 'submitButton' %>
   <%= button_tag 'Cancel', :type => 'reset', :onclick => 'javascript:cancelActivity();' %>
 <% end %>
