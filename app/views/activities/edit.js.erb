@@ -1,0 +1,5 @@
+// Open the edit form
+openInfowindow(
+    "<%= j(render :template => 'activities/edit.html.erb', :locals  => { :activity => @activity} ) %>",
+    findById(<%= @activity.id %>)
+);

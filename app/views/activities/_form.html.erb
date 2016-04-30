@@ -1,4 +1,17 @@
-<%= form_for @activity, remote: true do |f| %>
+<%= form_for @activity, :html => { :id => 'activity_form' }, remote: true do |f| %>
+
+  <% if @activity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+
+      <ul>
+      <% @activity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= f.hidden_field :location %>
   <div>
     <%= f.label 'Activity type' %>
@@ -20,6 +33,6 @@
     <%= f.text_area :comments, cols: 60, rows: 7 %>
   <div>
 
-  <%= f.submit 'Add activity', disabled: true, id: 'submitButton' %>
+  <%= f.submit disabled: true, id: 'submitButton' %>
   <%= button_tag 'Cancel', :type => 'reset', :onclick => 'javascript:cancelActivity();' %>
 <% end %>

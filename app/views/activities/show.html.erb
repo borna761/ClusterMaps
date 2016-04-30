@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= @activity.activity_type.name %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @activity.startDate %>
+</p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @activity.hostedBy %>
+</p>
+<p>
+  <strong>Participants:</strong>
+  <%= @activity.participants %>
+</p>
+<p>
+  <strong>Comments:</strong>
+  <%= @activity.comments %>
+</p>
+
+<%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-lg btn-primary", :remote =>true  %>
+<%= link_to raw('Destroy <i class="icon-trash"></i>'), @activity, class: "btn btn-lg", method: "delete", data: { confirm: 'Are you sure?' }, :remote =>true %>
