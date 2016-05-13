@@ -25,6 +25,7 @@ var icons = {
     icon: '<%= asset_path('studyCircles.png') %>'
   }
 };
+var infowindow;
 
 function initMap() {
   var mapDiv = document.getElementById('map');
@@ -39,6 +40,8 @@ function initMap() {
         ]
       }
     ]});
+
+  infowindow = new google.maps.InfoWindow();
 
   geoLocate(map);
 
@@ -61,6 +64,7 @@ function initMap() {
   }
 
   map.addListener('click', function(event) {
+    closeInfoWindow(map);
     addMarkerFromClick(event.latLng);
   });
 }
@@ -71,7 +75,29 @@ function addMarker(activity) {
     icon: icons[activity.type].icon,
     map: map
   });
+  marker.addListener('click', function() {
+    openWindow(map, marker, activity.activityId);
+  });
   activityArray[activity.type].push(marker);
+}
+
+function openWindow(map, marker, activityId)
+{
+  closeInfoWindow(map);
+  clearTemporaryMarker();
+  cancelActivity();
+
+  var content = getContent(activityId);
+
+  infowindow.setContent("Hello! Activity id is: " + activityId);
+
+  infowindow.open(map, marker);
+}
+
+function closeInfoWindow(map)
+{
+  if (infowindow.getMap())
+    infowindow.close();
 }
 
 function addMarkerFromClick(location) {
@@ -80,14 +106,18 @@ function addMarkerFromClick(location) {
     icon: newIcon,
     map: map
   });
+  clearTemporaryMarker();
+  tempActivity.push(marker);
+  $("#activity_location").val(location);
+  $("#activityForm").show();
+}
+
+function clearTemporaryMarker() {
   if (tempActivity.length > 0) {
     var temporaryMarker = tempActivity.pop();
     temporaryMarker.setMap(null);
     $("#activity_activity_type_id").val("");
   }
-  tempActivity.push(marker);
-  $("#activity_location").val(location);
-  $("#activityForm").show();
 }
 
 function toggleMarkers(category) {
@@ -125,7 +155,8 @@ function changeIcon() {
 function cancelActivity() {
   $("#submitButton").prop('disabled', true);
   $("#activityForm").hide();
-  tempActivity.pop().setMap(null);
+  if (tempActivity.length > 0)
+    tempActivity.pop().setMap(null);
 }
 
 function geoLocate(map) {
@@ -133,7 +164,7 @@ function geoLocate(map) {
   if(navigator.geolocation) {
     browserSupportFlag = true;
     navigator.geolocation.getCurrentPosition(function(position) {
-      initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+      initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       map.setCenter(initialLocation);
     }, function() {
       handleNoGeolocation(browserSupportFlag);

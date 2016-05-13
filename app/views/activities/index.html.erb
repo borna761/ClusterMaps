@@ -17,7 +17,9 @@
 function setActivities() {
   var activities = [];
   <% @activities.each do |activity| %>
-    var newActivity = { position: new google.maps.LatLng<%= activity.location %>, type: '<%= activity.activity_type.icon %>' };
+    var newActivity = { position: new google.maps.LatLng<%= activity.location %>,
+      type: '<%= activity.activity_type.icon %>',
+      activityId: <%= activity.id %> };
     activities.push(newActivity);
   <% end %>
   return activities;

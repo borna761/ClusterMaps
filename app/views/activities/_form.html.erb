@@ -1,5 +1,5 @@
 <%= form_for @activity, remote: true do |f| %>
-  <%= f.hidden_field :location %>
+<%= f.hidden_field :location %>
   <div>
     <%= f.label 'Activity type' %>
     <%= f.collection_select :activity_type_id, ActivityType.order(:name), :id, :name, {include_blank: true}, {class: 'form-field', onchange: 'javascript:changeIcon();'} %>
