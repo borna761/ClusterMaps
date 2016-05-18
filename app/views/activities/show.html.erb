@@ -1,0 +1,26 @@
+<p>
+  <strong>Activity:</strong>
+  <%= @activity.activity_type.name %>
+</p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @activity.hostedBy %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @activity.startDate %>
+</p>
+
+<p>
+  <strong>Participants:</strong>
+  <%= @activity.participants %>
+</p>
+<p>
+  <strong>Comments:</strong>
+  <%= @activity.comments %>
+</p>
+
+<%= link_to 'Edit', edit_activity_path(@activity), :remote => true %>
+<%= link_to 'Delete', @activity, method: "delete", data: { confirm: 'Are you sure?' }, :remote => true %>

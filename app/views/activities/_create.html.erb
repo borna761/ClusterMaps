@@ -1,0 +1,23 @@
+<%= form_for @activity, :html => { :id => 'activity_form' }, :remote => true do |f| %>
+
+  <% if @activity.errors.any? %>
+  <% else %>
+
+    <div>
+      <%= f.label 'Host' %>
+      <%= f.text_field :hostedBy %>
+    </div>
+
+    <div>
+      <%= f.label 'Activity type' %>
+      <%= f.collection_select :activity_type_id, ActivityType.order(:name), :id, :name, {include_blank: true}, {class: 'form-field', onchange: 'javascript:changeIcon();'} %>
+    </div>
+
+    <%= f.hidden_field :longitude %>
+    <%= f.hidden_field :latitude %>
+
+    <%= f.submit 'Add new activity', disabled: true, id: 'submitButton' %>
+
+  <% end %>
+
+<% end %>

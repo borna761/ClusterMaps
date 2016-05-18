@@ -1,0 +1,4 @@
+openInfoWindow(
+    "<%= j(render :template => 'playgrounds/edit.html.erb', :locals  => {:activity => @activity}) %>",
+    findById(<%= @activity.id %>)
+);

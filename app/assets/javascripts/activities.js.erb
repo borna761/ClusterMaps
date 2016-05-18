@@ -4,7 +4,9 @@ activityArray['devotionalMeetings'] = [];
 activityArray['juniorYouthGroups'] = [];
 activityArray['studyCircles'] = [];
 var activityKeys = Object.keys(activityArray);
-var tempActivity = [];
+var activityIcon;
+var activityCategory;
+var allActivities;
 var map;
 var newIcon = '<%= asset_path('info.png') %>';
 var icons = {
@@ -26,6 +28,7 @@ var icons = {
   }
 };
 var infowindow;
+var tempMarker;
 
 function initMap() {
   var mapDiv = document.getElementById('map');
@@ -42,7 +45,6 @@ function initMap() {
     ]});
 
   infowindow = new google.maps.InfoWindow();
-
   geoLocate(map);
 
   var legend = document.getElementById('legend');
@@ -57,14 +59,15 @@ function initMap() {
 
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push(document.getElementById('legend'));
 
-  var features = setActivities();
+  allActivities = setActivities();
 
-  for (var i = 0, feature; feature = features[i]; i++) {
-    addMarker(feature);
+  for (var i = 0, activity; activity = allActivities[i]; i++) {
+    addMarker(activity);
   }
 
   map.addListener('click', function(event) {
     closeInfoWindow(map);
+    clearMarker(tempMarker);
     addMarkerFromClick(event.latLng);
   });
 }
@@ -73,24 +76,54 @@ function addMarker(activity) {
   var marker = new google.maps.Marker({
     position: activity.position,
     icon: icons[activity.type].icon,
-    map: map
+    map: map,
+    activityId: activity.activityId
   });
   marker.addListener('click', function() {
-    openWindow(map, marker, activity.activityId);
+    openInfoWindow(activity.html, marker)
   });
   activityArray[activity.type].push(marker);
 }
 
-function openWindow(map, marker, activityId)
+function addMarkerFromClick(location) {
+  tempMarker = new google.maps.Marker({
+    position: location,
+    icon: newIcon,
+    map: map
+  });
+
+  var splitLocations = {
+    latitude: location.lat(),
+    longitude: location.lng()
+  };
+
+  $.ajax({
+    url: '/activities/new?' + jQuery.param({activity: splitLocations}) + '#chunked=true',
+    type: 'GET',
+    async: false,
+    success: function(html) {
+      var createFormOpen = function() {
+        openInfoWindow(html, tempMarker);
+        $("#activity_hostedBy").focus();
+
+        infowindow.addListener('closeclick', function() {
+          clearMarker(tempMarker);
+        });
+
+        tempMarker.addListener('click', function() {
+          createFormOpen();
+        });
+      }
+
+      createFormOpen();
+    }
+  });
+}
+
+function openInfoWindow(html, marker)
 {
-  closeInfoWindow(map);
-  clearTemporaryMarker();
-  cancelActivity();
-
-  var content = getContent(activityId);
-
-  infowindow.setContent("Hello! Activity id is: " + activityId);
-
+  closeInfoWindow();
+  infowindow.setContent(html);
   infowindow.open(map, marker);
 }
 
@@ -100,23 +133,12 @@ function closeInfoWindow(map)
     infowindow.close();
 }
 
-function addMarkerFromClick(location) {
-  var marker = new google.maps.Marker({
-    position: location,
-    icon: newIcon,
-    map: map
-  });
-  clearTemporaryMarker();
-  tempActivity.push(marker);
-  $("#activity_location").val(location);
-  $("#activityForm").show();
-}
+function clearMarker(marker) {
+  try {
+    marker.setMap(null);
+  }
+  catch (error) {
 
-function clearTemporaryMarker() {
-  if (tempActivity.length > 0) {
-    var temporaryMarker = tempActivity.pop();
-    temporaryMarker.setMap(null);
-    $("#activity_activity_type_id").val("");
   }
 }
 
@@ -131,32 +153,16 @@ function toggleMarkers(category) {
   }
 }
 
-function replaceTemporaryWithPermanentMarker() {
-  var temporaryMarker = tempActivity.pop();
-  var activityCategory = $("#activity_activity_type_id").val();
-  var activityName = activityKeys[activityCategory - 1];
-  activityArray[activityName].push(temporaryMarker);
-  var activityCount = parseInt($("#" + activityName + "Count").html()) + 1;
-  $("#" + activityName + "Count").html(activityCount);
-}
-
 function changeIcon() {
-  var temporaryMarker = tempActivity[0];
-  var activityCategory = $("#activity_activity_type_id").val();
+  activityCategory = $("#activity_activity_type_id").val();
   if (activityCategory != "") {
-    temporaryMarker.setIcon(icons[activityKeys[activityCategory - 1]].icon);
+    activityIcon = icons[activityKeys[activityCategory - 1]].icon;
+    tempMarker.setIcon(activityIcon);
     $("#submitButton").prop('disabled', false);
   } else {
-    temporaryMarker.setIcon(newIcon);
+    tempMarker.setIcon(newIcon);
     $("#submitButton").prop('disabled', true);
   }
-}
-
-function cancelActivity() {
-  $("#submitButton").prop('disabled', true);
-  $("#activityForm").hide();
-  if (tempActivity.length > 0)
-    tempActivity.pop().setMap(null);
 }
 
 function geoLocate(map) {
