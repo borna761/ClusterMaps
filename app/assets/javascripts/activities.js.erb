@@ -33,7 +33,7 @@ var tempMarker;
 function initMap() {
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
-    zoom: 9,
+    zoom: 10,
     styles: [
       {
         featureType: 'poi',
@@ -72,19 +72,6 @@ function initMap() {
   });
 }
 
-function addMarker(activity) {
-  var marker = new google.maps.Marker({
-    position: activity.position,
-    icon: icons[activity.type].icon,
-    map: map,
-    activityId: activity.activityId
-  });
-  marker.addListener('click', function() {
-    openInfoWindow(activity.html, marker)
-  });
-  activityArray[activity.type].push(marker);
-}
-
 function addMarkerFromClick(location) {
   tempMarker = new google.maps.Marker({
     position: location,
@@ -120,6 +107,19 @@ function addMarkerFromClick(location) {
   });
 }
 
+function addMarker(activity) {
+  var marker = new google.maps.Marker({
+    position: activity.position,
+    icon: icons[activity.type].icon,
+    map: map,
+    activityId: activity.activityId
+  });
+  marker.addListener('click', function() {
+    openInfoWindow(activity.html, marker);
+  });
+  activityArray[activity.type].push(marker);
+}
+
 function openInfoWindow(html, marker)
 {
   closeInfoWindow();
@@ -139,6 +139,19 @@ function clearMarker(marker) {
   }
   catch (error) {
 
+  }
+}
+
+function findMarker(markerId) {
+  for (var i = 0, activity; activity = allActivities[i]; i++) {
+    if (activity.activityId == markerId) {
+      var findActivity = activity.type;
+      for (var j = 0, findMarker; findMarker = activityArray[findActivity][j]; j++) {
+        if (findMarker.activityId == markerId) {
+          return findMarker;
+        }
+      }
+    }
   }
 }
 

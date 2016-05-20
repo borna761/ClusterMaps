@@ -4,6 +4,7 @@
     // remove old marker
     clearMarker(tempMarker);
 
+    // find the activity
     var activityName = activityKeys[activityCategory - 1];
 
     var markerInfo = {
@@ -21,7 +22,7 @@
     activityArray[activityName].push(marker);
     allActivities.push(marker);
 
-    // update the counters
+    // update the counter
     $("#" + activityName + "Count").html(activityArray[activityName].length);
 
     // add a listener for the new marker
@@ -29,11 +30,14 @@
       openInfoWindow(
         "<%= j(render :template => 'activities/show.html.erb',
                       :locals => { :activity => @activity }) %>",
-        marker)
+        marker);
     });
   }
 
   createMarkerWithInfoWindow();
+
 <% else %>
+
   alert("error in here");
+
 <% end %>

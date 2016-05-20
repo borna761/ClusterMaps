@@ -23,8 +23,8 @@ class ActivitiesController < ApplicationController
 
   def edit
     respond_to do |format|
-      format.js {}
       format.html {}
+      format.js {}
     end
   end
 
