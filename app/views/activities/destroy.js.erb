@@ -1,0 +1,21 @@
+for (var i = 0, activity; activity = allActivities[i]; i++) {
+  if (activity.activityId == <%= @activity.id %>) {
+    var deleteActivity = activity.type;
+    for (var j = 0, deleteMarker; deleteMarker = activityArray[deleteActivity][j]; j++) {
+      if (deleteMarker.activityId == <%= @activity.id %>) {
+        // delete the marker from the map
+        clearMarker(deleteMarker);
+
+        // delete the marker from array
+        var markerIndex = activityArray[deleteActivity].indexOf(deleteMarker);
+        activityArray[deleteActivity].splice(markerIndex, 1);
+
+        // update counter
+        $("#" + deleteActivity + "Count").html(activityArray[deleteActivity].length);
+      }
+    }
+  }
+}
+
+// close the window
+closeInfoWindow();

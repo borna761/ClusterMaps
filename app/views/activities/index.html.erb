@@ -5,10 +5,6 @@
   <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')">Junior Youth Groups: <span id="juniorYouthGroupsCount"><%= @jy.count %></span><br />
   <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.count %></span><br />
 </div>
-<div id="activityForm">
-  <%= render 'form' %>
-</div>
-
 
 <div id="legend"></div>
 
@@ -16,10 +12,13 @@
 <script>
 function setActivities() {
   var activities = [];
-  <% @activities.each do |activity| %>
-    var newActivity = { position: new google.maps.LatLng<%= activity.location %>,
-      type: '<%= activity.activity_type.icon %>',
-      activityId: <%= activity.id %> };
+  <% @activities.each do |activity|
+    @activity = activity %>
+    var newActivity = { position: new google.maps.LatLng(<%= activity.latitude %>, <%= activity.longitude %>),
+      type: '<%= @activity.activity_type.icon %>',
+      html: "<%= j(render :template => 'activities/show.html.erb',
+                    :locals => { :activity => @activity }) %>",
+      activityId: <%= @activity.id %> };
     activities.push(newActivity);
   <% end %>
   return activities;

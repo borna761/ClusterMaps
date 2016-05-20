@@ -1,2 +1,43 @@
-$("#activityForm").hide();
-replaceTemporaryWithPermanentMarker();
+<% if (@activity.errors.empty?) %>
+
+  var createMarkerWithInfoWindow = function() {
+    // remove old marker
+    clearMarker(tempMarker);
+
+    // find the activity
+    var activityName = activityKeys[activityCategory - 1];
+
+    var markerInfo = {
+      position: new google.maps.LatLng(<%= @activity.latitude %>, <%= @activity.longitude %>),
+      icon: activityIcon,
+      map: map,
+      type: activityName,
+      activityId: <%= @activity.id %>
+    };
+
+    // add the new marker
+    var marker = new google.maps.Marker(markerInfo);
+
+    // get the activity array and push the marker to it
+    activityArray[activityName].push(marker);
+    allActivities.push(marker);
+
+    // update the counter
+    $("#" + activityName + "Count").html(activityArray[activityName].length);
+
+    // add a listener for the new marker
+    marker.addListener('click', function() {
+      openInfoWindow(
+        "<%= j(render :template => 'activities/show.html.erb',
+                      :locals => { :activity => @activity }) %>",
+        marker);
+    });
+  }
+
+  createMarkerWithInfoWindow();
+
+<% else %>
+
+  alert("error in here");
+
+<% end %>

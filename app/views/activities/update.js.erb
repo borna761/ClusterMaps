@@ -1,0 +1,27 @@
+<% if (@activity.errors.empty?) %>
+
+  var updateMarkerWithInfoWindow = function() {
+
+    // change infowindow to the new marker
+    var showUpdatedInfoWindow = function() {
+      openInfoWindow(
+        "<%= j(render :template => 'activities/show.html.erb',
+                      :locals => { :activity => @activity }) %>",
+        findMarker(<%= @activity.id %>));
+    }
+
+    showUpdatedInfoWindow();
+
+    // update listener for the updated marker
+    updateMarker.addListener('click', function() {
+      showUpdatedInfoWindow();
+  });
+}
+
+  updateMarkerWithInfoWindow();
+
+<% else %>
+
+  alert("error in here");
+
+<% end %>

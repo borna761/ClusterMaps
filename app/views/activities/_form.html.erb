@@ -1,16 +1,11 @@
 <%= form_for @activity, remote: true do |f| %>
-<%= f.hidden_field :location %>
   <div>
-    <%= f.label 'Activity type' %>
-    <%= f.collection_select :activity_type_id, ActivityType.order(:name), :id, :name, {include_blank: true}, {class: 'form-field', onchange: 'javascript:changeIcon();'} %>
+    <%= f.label 'Host' %>
+    <%= f.text_field :hostedBy %>
   </div>
   <div>
     <%= f.label 'Start date' %>
     <%= f.text_field :startDate %>
-  </div>
-  <div>
-    <%= f.label 'Host' %>
-    <%= f.text_field :hostedBy %>
   </div>
   <div>
     <%= f.label 'Participants' %>
@@ -20,6 +15,5 @@
     <%= f.text_area :comments, cols: 60, rows: 7 %>
   <div>
 
-  <%= f.submit 'Add activity', disabled: true, id: 'submitButton' %>
-  <%= button_tag 'Cancel', :type => 'reset', :onclick => 'javascript:cancelActivity();' %>
+  <%= f.submit id: 'submitButton' %>
 <% end %>

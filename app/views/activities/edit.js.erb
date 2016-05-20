@@ -1,0 +1,4 @@
+alert("starting");
+
+openInfoWindow("<%= j(render :template => 'activities/edit.html.erb',
+        :locals  => { :activity => @activity} ) %>", findMarker(<%= @activity.id %>));
