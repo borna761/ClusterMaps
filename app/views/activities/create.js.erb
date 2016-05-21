@@ -9,9 +9,9 @@
 
     var markerInfo = {
       position: new google.maps.LatLng(<%= @activity.latitude %>, <%= @activity.longitude %>),
+      type: activityName,
       icon: activityIcon,
       map: map,
-      type: activityName,
       activityId: <%= @activity.id %>
     };
 

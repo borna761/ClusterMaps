@@ -6,7 +6,7 @@ activityArray['studyCircles'] = [];
 var activityKeys = Object.keys(activityArray);
 var activityIcon;
 var activityCategory;
-var allActivities;
+var allActivities = [];
 var map;
 var newIcon = '<%= asset_path('info.png') %>';
 var icons = {
@@ -59,9 +59,9 @@ function initMap() {
 
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push(document.getElementById('legend'));
 
-  allActivities = setActivities();
+  var existingActivities = setActivities();
 
-  for (var i = 0, activity; activity = allActivities[i]; i++) {
+  for (var i = 0, activity; activity = existingActivities[i]; i++) {
     addMarker(activity);
   }
 
@@ -110,6 +110,7 @@ function addMarkerFromClick(location) {
 function addMarker(activity) {
   var marker = new google.maps.Marker({
     position: activity.position,
+    type: activity.type,
     icon: icons[activity.type].icon,
     map: map,
     activityId: activity.activityId
@@ -117,6 +118,7 @@ function addMarker(activity) {
   marker.addListener('click', function() {
     openInfoWindow(activity.html, marker);
   });
+  allActivities.push(marker);
   activityArray[activity.type].push(marker);
 }
 
@@ -145,12 +147,7 @@ function clearMarker(marker) {
 function findMarker(markerId) {
   for (var i = 0, activity; activity = allActivities[i]; i++) {
     if (activity.activityId == markerId) {
-      var findActivity = activity.type;
-      for (var j = 0, findMarker; findMarker = activityArray[findActivity][j]; j++) {
-        if (findMarker.activityId == markerId) {
-          return findMarker;
-        }
-      }
+      return activity;
     }
   }
 }
@@ -197,11 +194,11 @@ function geoLocate(map) {
 
   function handleNoGeolocation(errorFlag) {
     if (errorFlag == true) {
-      alert("Geolocation service failed.");
-      initialLocation = newyork;
+      alert("Geolocation service failed. Placing you in the middle of the earth.");
+      initialLocation = new google.maps.LatLng(0, 0);
     } else {
       alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-      initialLocation = siberia;
+      initialLocation = new google.maps.LatLng(61.0137, 99.1967);
     }
     map.setCenter(initialLocation);
   }
