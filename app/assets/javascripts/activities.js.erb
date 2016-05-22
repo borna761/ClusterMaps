@@ -216,12 +216,13 @@ function changeIcon() {
     activityCategory = activityKeys[activityCategorySelection - 1]
     activityIcon = icons[activityCategory].icon;
     tempMarker.setIcon(activityIcon);
-    showHideUniqueField(activityCategory);
     $("#submitButton").prop('disabled', false);
   } else {
+    activityCategory = "";
     tempMarker.setIcon(newIcon);
     $("#submitButton").prop('disabled', true);
   }
+  showHideUniqueField(activityCategory);
 }
 
 function showHideUniqueField(activityCategory) {
