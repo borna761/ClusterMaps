@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 #  post "activities" => "activities#create"
 #  patch "activities/:id" => "activities#update"
 
-resources :activities
+resources :activities do
+  collection do
+    get 'stats'
+  end
+end
 
 
   root "activities#index"

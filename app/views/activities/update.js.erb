@@ -3,11 +3,12 @@
   var updateMarkerWithInfoWindow = function() {
 
     // change infowindow to the new marker
+    var updateMarker = findMarker(<%= @activity.id %>);
     var showUpdatedInfoWindow = function() {
       openInfoWindow(
         "<%= j(render :template => 'activities/show.html.erb',
                       :locals => { :activity => @activity }) %>",
-        findMarker(<%= @activity.id %>));
+        updateMarker);
     }
 
     showUpdatedInfoWindow();
@@ -16,6 +17,9 @@
     updateMarker.addListener('click', function() {
       showUpdatedInfoWindow();
   });
+
+    // update sidebar
+    updateActivitySide(updateMarker.type);
 }
 
   updateMarkerWithInfoWindow();

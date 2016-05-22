@@ -3,14 +3,23 @@
     <%= f.label 'Host' %>
     <%= f.text_field :hostedBy %>
   </div>
+  
   <div>
     <%= f.label 'Start date' %>
     <%= f.text_field :startDate %>
   </div>
+
   <div>
     <%= f.label 'Participants' %>
     <%= f.select :participants, (0..20) %>
   </div>
+
+  <div class="uniquefieldDiv">
+    <%= f.label 'Unique Field', id: 'uniquefieldLabel' %>
+    <%= f.text_field :uniquefield %>
+  </div>
+
+  <div>
     <%= f.label 'Comments:' %>
     <%= f.text_area :comments, cols: 60, rows: 7 %>
   <div>

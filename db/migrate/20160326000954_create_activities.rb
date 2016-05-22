@@ -3,7 +3,7 @@ class CreateActivities < ActiveRecord::Migration
     create_table :activities do |t|
       t.date :startDate
       t.string :location
-      t.integer :participants
+      t.integer :participants, :default => 0
       t.text :comments
       t.integer :activity_type_id
       t.timestamps null: false

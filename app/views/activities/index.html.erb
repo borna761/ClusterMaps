@@ -1,9 +1,13 @@
 <div id="map"></div>
 <div id="activities">
-  <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')">Children's classes: <span id="childrenClassesCount"><%= @cc.count %></span><br />
-  <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')">Devotional Meetings: <span id="devotionalMeetingsCount"><%= @dm.count %></span><br />
-  <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')">Junior Youth Groups: <span id="juniorYouthGroupsCount"><%= @jy.count %></span><br />
-  <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.count %></span><br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')"><a href="#" onclick="viewActivityDetail('childrenClasses')">Children's Classes: <span id="childrenClassesCount"><%= @cc.count %></span></a><br />
+  <div id="childrenClassesDiv" class="activitiesDiv"></div>
+  <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')"><a href="#" onclick="viewActivityDetail('devotionalMeetings')">Devotional Meetings: <span id="devotionalMeetingsCount"><%= @dm.count %></span></a><br />
+  <div id="devotionalMeetingsDiv" class="activitiesDiv"></div>
+  <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')"><a href="#" onclick="viewActivityDetail('juniorYouthGroups')">Junior Youth Groups: <span id="juniorYouthGroupsCount"><%= @jy.count %></span></a><br />
+  <div id="juniorYouthGroupsDiv" class="activitiesDiv"></div>
+  <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')"><a href="#" onclick="viewActivityDetail('studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.count %></span></a><br />
+  <div id="studyCirclesDiv" class="activitiesDiv"></div>
 </div>
 
 <div id="legend"></div>

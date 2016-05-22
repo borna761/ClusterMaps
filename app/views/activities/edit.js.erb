@@ -1,2 +1,6 @@
+var editMarker = findMarker(<%= @activity.id %>);
+
 openInfoWindow("<%= j(render :template => 'activities/edit.html.erb',
-        :locals  => { :activity => @activity} ) %>", findMarker(<%= @activity.id %>));
+        :locals  => { :activity => @activity} ) %>", editMarker);
+
+showHideUniqueField(editMarker.type);

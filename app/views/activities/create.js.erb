@@ -4,12 +4,9 @@
     // remove old marker
     clearMarker(tempMarker);
 
-    // find the activity
-    var activityName = activityKeys[activityCategory - 1];
-
     var markerInfo = {
       position: new google.maps.LatLng(<%= @activity.latitude %>, <%= @activity.longitude %>),
-      type: activityName,
+      type: activityCategory,
       icon: activityIcon,
       map: map,
       activityId: <%= @activity.id %>
@@ -19,11 +16,11 @@
     var marker = new google.maps.Marker(markerInfo);
 
     // get the activity array and push the marker to it
-    activityArray[activityName].push(marker);
+    activityArray[activityCategory].push(marker);
     allActivities.push(marker);
 
     // update the counter
-    $("#" + activityName + "Count").html(activityArray[activityName].length);
+    $("#" + activityCategory + "Count").html(activityArray[activityCategory].length);
 
     // add a listener for the new marker
     marker.addListener('click', function() {
@@ -32,6 +29,9 @@
                       :locals => { :activity => @activity }) %>",
         marker);
     });
+
+    // check if the sidebar is visible and update it with the new activity
+    updateActivitySide(activityName);
   }
 
   createMarkerWithInfoWindow();

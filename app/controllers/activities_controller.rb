@@ -61,13 +61,23 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def stats
+    activityType = params[:activityType]
+    @activities = ActivityType.find_by_icon(activityType).activities.order(:id)
+    respond_to do |format|
+      format.html
+      format.json { render json: @activities }
+      end
+  end
+
+
 private
   def set_activity
     @activity = Activity.find(params[:id])
   end
 
   def activity_params
-    params.require(:activity).permit(:startDate, :longitude, :latitude, :participants, :comments, :hostedBy, :activity_type_id)
+    params.require(:activity).permit(:startDate, :longitude, :latitude, :participants, :comments, :hostedBy, :uniquefield, :activity_type_id)
   end
 
 end

@@ -1,26 +1,41 @@
-<p>
-  <strong>Activity:</strong>
-  <%= @activity.activity_type.name %>
-</p>
+<% @activityType = @activity.activity_type.name
+@activityIcon = @activity.activity_type.icon %>
 
-<p>
+<div>
+  <strong>Activity:</strong>
+  <%= @activityType %>
+</div>
+
+<div>
   <strong>Host:</strong>
   <%= @activity.hostedBy %>
-</p>
+</div>
 
-<p>
+<div>
   <strong>Start date:</strong>
   <%= @activity.startDate %>
-</p>
+</div>
 
-<p>
+<div>
   <strong>Participants:</strong>
   <%= @activity.participants %>
-</p>
-<p>
+</div>
+
+<% if @activityIcon == 'childrenClasses' || @activityIcon == 'studyCircles' %>
+  <div>
+  <% if @activityIcon == 'childrenClasses' %>
+    <strong>Age range:</strong>
+  <% else %>
+    <string>Book:</strong>
+  <% end %>
+  <%= @activity.uniquefield %>
+  </div>
+<% end %>
+
+<div>
   <strong>Comments:</strong>
   <%= @activity.comments %>
-</p>
+</div>
 
 <%= link_to 'Edit', edit_activity_path(@activity), :remote => true %>
 <%= link_to 'Delete', @activity, method: "delete", data: { confirm: 'Are you sure?' }, :remote => true %>

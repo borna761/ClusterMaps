@@ -33,7 +33,7 @@ var tempMarker;
 function initMap() {
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
-    zoom: 10,
+    zoom: 11,
     styles: [
       {
         featureType: 'poi',
@@ -91,7 +91,8 @@ function addMarkerFromClick(location) {
     success: function(html) {
       var createFormOpen = function() {
         openInfoWindow(html, tempMarker);
-        $("#activity_hostedBy").focus();
+        hideUniqueField();
+        $("#activity_activity_type_id").focus();
 
         infowindow.addListener('closeclick', function() {
           clearMarker(tempMarker);
@@ -105,6 +106,52 @@ function addMarkerFromClick(location) {
       createFormOpen();
     }
   });
+}
+
+function viewActivityDetail(activity) {
+  var activityDiv = "#" + activity + "Div";
+  if (!$(activityDiv).is(":visible")) {
+  $.ajax({
+    url: 'activities/stats',
+    type: 'GET',
+    dataType: 'json',
+    data: {activityType: activity},
+    success: function(result) {
+      var activityInformation = "";
+      for (var key in result) {
+        activityInformation += "<a href=\"#\" onclick=\"triggerMarker(" + result[key].id + ")\">";
+        activityInformation += "Host: " + result[key].hostedBy + " | Participants: " + result[key].participants + "\n";
+        if (activity == 'childrenClasses') {
+          activityInformation += " | Age range: " + result[key].uniquefield + "\n";
+        }
+        else if (activity == 'studyCircles') {
+          activityInformation += " | Book: " + result[key].uniquefield + "\n";
+        }
+        activityInformation += "</a><br>\n";
+      }
+      $(activityDiv).html(activityInformation);
+    }
+  });
+  $(activityDiv).show();
+}
+else {
+  $(activityDiv).hide();
+}
+}
+
+function updateActivitySide(activityName) {
+  var activityDiv = "#" + activityName + "Div";
+  if ($(activityDiv).is(":visible")) {
+    $(activityDiv).hide();
+  }
+  else {
+    $(activityDiv).show();
+  }
+  viewActivityDetail(activityName);
+}
+
+function triggerMarker(activityId) {
+  google.maps.event.trigger(findMarker(activityId), 'click');
 }
 
 function addMarker(activity) {
@@ -164,15 +211,38 @@ function toggleMarkers(category) {
 }
 
 function changeIcon() {
-  activityCategory = $("#activity_activity_type_id").val();
-  if (activityCategory != "") {
-    activityIcon = icons[activityKeys[activityCategory - 1]].icon;
+  var activityCategorySelection = $("#activity_activity_type_id").val();
+  if (activityCategorySelection != "") {
+    activityCategory = activityKeys[activityCategorySelection - 1]
+    activityIcon = icons[activityCategory].icon;
     tempMarker.setIcon(activityIcon);
+    showHideUniqueField(activityCategory);
     $("#submitButton").prop('disabled', false);
   } else {
     tempMarker.setIcon(newIcon);
     $("#submitButton").prop('disabled', true);
   }
+}
+
+function showHideUniqueField(activityCategory) {
+  if (activityCategory == 'childrenClasses' || activityCategory == 'studyCircles') {
+    $(".uniquefieldDiv").show();
+    if (activityCategory == 'childrenClasses') {
+      $("#uniquefieldLabel").text("Age");
+    }
+    else {
+      $("#uniquefieldLabel").text("Book");
+    }
+  }
+  else {
+    hideUniqueField();
+  }
+}
+
+function hideUniqueField() {
+  $(".uniquefieldDiv").hide();
+  $("#uniquefieldLabel").text("");
+  $("#uniquefieldLabel").val("");
 }
 
 function geoLocate(map) {
