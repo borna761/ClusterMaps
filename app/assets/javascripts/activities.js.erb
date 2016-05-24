@@ -70,6 +70,13 @@ function initMap() {
     clearMarker(tempMarker);
     addMarkerFromClick(event.latLng);
   });
+
+  window.addEventListener('keyup', function(e) {
+    if (e.keyCode == 27) {
+      closeInfoWindow();
+      clearMarker(tempMarker);
+    }
+  });
 }
 
 function addMarkerFromClick(location) {
@@ -102,7 +109,6 @@ function addMarkerFromClick(location) {
           createFormOpen();
         });
       }
-
       createFormOpen();
     }
   });
@@ -111,47 +117,32 @@ function addMarkerFromClick(location) {
 function viewActivityDetail(activity) {
   var activityDiv = "#" + activity + "Div";
   if (!$(activityDiv).is(":visible")) {
-  $.ajax({
-    url: 'activities/stats',
-    type: 'GET',
-    dataType: 'json',
-    data: {activityType: activity},
-    success: function(result) {
-      var activityInformation = "";
-      for (var key in result) {
-        activityInformation += "<a href=\"#\" onclick=\"triggerMarker(" + result[key].id + ")\">";
-        activityInformation += "Host: " + result[key].hostedBy + " | Participants: " + result[key].participants + "\n";
-        if (activity == 'childrenClasses') {
-          activityInformation += " | Age range: " + result[key].uniquefield + "\n";
+    $.ajax({
+      url: 'activities/stats',
+      type: 'GET',
+      dataType: 'json',
+      data: {activityType: activity},
+      success: function(result) {
+        var activityInformation = "";
+        for (var key in result) {
+          activityInformation += "<a href=\"#\" onclick=\"triggerMarker(" + result[key].id + ")\">";
+          activityInformation += "Host: " + result[key].hostedBy + " | Participants: " + result[key].participants + "\n";
+          if (activity == 'childrenClasses') {
+            activityInformation += " | Age range: " + result[key].uniquefield + "\n";
+          }
+          else if (activity == 'studyCircles') {
+            activityInformation += " | Book: " + result[key].uniquefield + "\n";
+          }
+          activityInformation += "</a><br>\n";
         }
-        else if (activity == 'studyCircles') {
-          activityInformation += " | Book: " + result[key].uniquefield + "\n";
-        }
-        activityInformation += "</a><br>\n";
+        $(activityDiv).html(activityInformation);
       }
-      $(activityDiv).html(activityInformation);
-    }
-  });
-  $(activityDiv).show();
-}
-else {
-  $(activityDiv).hide();
-}
-}
-
-function updateActivitySide(activityName) {
-  var activityDiv = "#" + activityName + "Div";
-  if ($(activityDiv).is(":visible")) {
-    $(activityDiv).hide();
-  }
-  else {
+    });
     $(activityDiv).show();
   }
-  viewActivityDetail(activityName);
-}
-
-function triggerMarker(activityId) {
-  google.maps.event.trigger(findMarker(activityId), 'click');
+  else {
+    $(activityDiv).hide();
+  }
 }
 
 function addMarker(activity) {
@@ -167,28 +158,6 @@ function addMarker(activity) {
   });
   allActivities.push(marker);
   activityArray[activity.type].push(marker);
-}
-
-function openInfoWindow(html, marker)
-{
-  closeInfoWindow();
-  infowindow.setContent(html);
-  infowindow.open(map, marker);
-}
-
-function closeInfoWindow(map)
-{
-  if (infowindow.getMap())
-    infowindow.close();
-}
-
-function clearMarker(marker) {
-  try {
-    marker.setMap(null);
-  }
-  catch (error) {
-
-  }
 }
 
 function findMarker(markerId) {
@@ -226,17 +195,25 @@ function changeIcon() {
 }
 
 function showHideUniqueField(activityCategory) {
-  if (activityCategory == 'childrenClasses' || activityCategory == 'studyCircles') {
+  if (activityCategory != 'devotionalMeetings') {
     $(".uniquefieldDiv").show();
+    $("#teacherTutorAnimatorDiv").show();
     if (activityCategory == 'childrenClasses') {
       $("#uniquefieldLabel").text("Age range");
+      $("#teacherTutorAnimatorLabel").text("Teacher(s)");
+    }
+    else if (activityCategory == 'studyCircles') {
+      $("#uniquefieldLabel").text("Book");
+      $("#teacherTutorAnimatorLabel").text("Tutor(s)");
     }
     else {
-      $("#uniquefieldLabel").text("Book");
+      $("#teacherTutorAnimatorLabel").text("Animator(s)");
+      hideUniqueField();
     }
   }
   else {
     hideUniqueField();
+    $("#teacherTutorAnimatorDiv").hide();
   }
 }
 
@@ -244,33 +221,4 @@ function hideUniqueField() {
   $(".uniquefieldDiv").hide();
   $("#uniquefieldLabel").text("");
   $("#uniquefieldLabel").val("");
-}
-
-function geoLocate(map) {
-  // Try W3C Geolocation (Preferred)
-  if(navigator.geolocation) {
-    browserSupportFlag = true;
-    navigator.geolocation.getCurrentPosition(function(position) {
-      initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      map.setCenter(initialLocation);
-    }, function() {
-      handleNoGeolocation(browserSupportFlag);
-    });
-  }
-  // Browser doesn't support Geolocation
-  else {
-    browserSupportFlag = false;
-    handleNoGeolocation(browserSupportFlag);
-  }
-
-  function handleNoGeolocation(errorFlag) {
-    if (errorFlag == true) {
-      alert("Geolocation service failed. Placing you in the middle of the earth.");
-      initialLocation = new google.maps.LatLng(0, 0);
-    } else {
-      alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-      initialLocation = new google.maps.LatLng(61.0137, 99.1967);
-    }
-    map.setCenter(initialLocation);
-  }
 }

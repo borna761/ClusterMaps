@@ -77,7 +77,7 @@ private
   end
 
   def activity_params
-    params.require(:activity).permit(:startDate, :longitude, :latitude, :participants, :comments, :hostedBy, :uniquefield, :activity_type_id)
+    params.require(:activity).permit(:startDate, :longitude, :latitude, :participants, :comments, :hostedBy, :uniquefield, :teacherTutorAnimator, :activity_type_id)
   end
 
 end

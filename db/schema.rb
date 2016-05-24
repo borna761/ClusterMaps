@@ -11,22 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521221507) do
+ActiveRecord::Schema.define(version: 20160523204256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
     t.date     "startDate"
-    t.integer  "participants",     default: 0
+    t.integer  "participants",         default: 0
     t.text     "comments"
     t.integer  "activity_type_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "hostedBy"
     t.string   "latitude"
     t.string   "longitude"
     t.string   "uniquefield"
+    t.string   "teacherTutorAnimator"
   end
 
   create_table "activity_types", force: :cascade do |t|

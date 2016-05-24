@@ -11,6 +11,17 @@
   <%= @activity.hostedBy %>
 </div>
 
+<% if @activityIcon != 'devotionalMeetings' %>
+  <% if @activityIcon == 'childrenClasses' %>
+    <strong>Teacher(s):</strong>
+  <% elsif @activityIcon == 'studyCircles' %>
+    <strong>Tutor(s):</strong>
+  <% else %>
+    <strong>Animator(s):</strong>
+  <% end %>
+  <%= @activity.teacherTutorAnimator %>
+<% end %>
+
 <div>
   <strong>Start date:</strong>
   <%= @activity.startDate %>
