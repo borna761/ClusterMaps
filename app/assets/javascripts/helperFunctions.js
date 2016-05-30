@@ -63,3 +63,7 @@ function geoLocate(map) {
     map.setCenter(initialLocation);
   }
 }
+
+function redirectCluster(clusterId) {
+  window.document.location.href = "/?cluster=" + clusterId
+}

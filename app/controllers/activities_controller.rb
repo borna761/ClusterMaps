@@ -1,15 +1,25 @@
 class ActivitiesController < ApplicationController
 
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   respond_to :html
 
   def index
-    @activities = Activity.all
-    @cc = ActivityType.find_by_name('Children\'s Class').activities
-    @dm = ActivityType.find_by_name('Devotional Meeting').activities
-    @jy = ActivityType.find_by_name('Junior Youth Group').activities
-    @sc = ActivityType.find_by_name('Study Circle').activities
+    @userclusters = current_user.cluster_users.joins(:cluster).order("clusters.name")
+    @defaultcluster = @userclusters.find_by(:default => true).cluster
+
+    if params[:cluster].present?
+      @selectedcluster = Cluster.find(params[:cluster])
+    else
+      @selectedcluster = @defaultcluster
+    end
+
+    @clusteractivities = @selectedcluster.activities
+    @cc = @clusteractivities.joins(:activity_type).where("activity_types.name" => "Children's Class")
+    @dm = @clusteractivities.joins(:activity_type).where("activity_types.name" => "Devotional Meeting")
+    @jy = @clusteractivities.joins(:activity_type).where("activity_types.name" => "Junior Youth Group")
+    @sc = @clusteractivities.joins(:activity_type).where("activity_types.name" => "Study Circle")
   end
 
   def show

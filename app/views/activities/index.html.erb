@@ -1,12 +1,19 @@
 <div id="map"></div>
+<div id="clusters">
+  <select onchange="redirectCluster(this.options[this.selectedIndex].value);">
+    <% @userclusters.each do |usercluster| %>
+      <option value="<%= usercluster.cluster.id %>"<% if usercluster.cluster.id == @selectedcluster.id %> selected="selected"<% end %>><%= usercluster.cluster.name %></option>
+    <% end %>
+  </select>
+</div>
 <div id="activities">
-  <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')"><a href="#" onclick="viewActivityDetail('childrenClasses')">Children's Classes: <span id="childrenClassesCount"><%= @cc.count %></span></a><br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')"><a href="#" onclick="viewActivityDetail('childrenClasses')">Children's Classes: <span id="childrenClassesCount"><%= @cc.nil? ? 0 : @cc.count %></span></a><br />
   <div id="childrenClassesDiv" class="activitiesDiv"></div>
-  <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')"><a href="#" onclick="viewActivityDetail('devotionalMeetings')">Devotional Meetings: <span id="devotionalMeetingsCount"><%= @dm.count %></span></a><br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')"><a href="#" onclick="viewActivityDetail('devotionalMeetings')">Devotional Meetings: <span id="devotionalMeetingsCount"><%= @dm.nil? ? 0 : @dm.count %></span></a><br />
   <div id="devotionalMeetingsDiv" class="activitiesDiv"></div>
-  <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')"><a href="#" onclick="viewActivityDetail('juniorYouthGroups')">Junior Youth Groups: <span id="juniorYouthGroupsCount"><%= @jy.count %></span></a><br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')"><a href="#" onclick="viewActivityDetail('juniorYouthGroups')">Junior Youth Groups: <span id="juniorYouthGroupsCount"><%= @jy.nil? ? 0 : @jy.count %></span></a><br />
   <div id="juniorYouthGroupsDiv" class="activitiesDiv"></div>
-  <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')"><a href="#" onclick="viewActivityDetail('studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.count %></span></a><br />
+  <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')"><a href="#" onclick="viewActivityDetail('studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.nil? ? 0 : @sc.count %></span></a><br />
   <div id="studyCirclesDiv" class="activitiesDiv"></div>
 </div>
 
@@ -16,7 +23,7 @@
 <script>
 function setActivities() {
   var activities = [];
-  <% @activities.each do |activity|
+  <% @clusteractivities.each do |activity|
     @activity = activity %>
     var newActivity = { position: new google.maps.LatLng(<%= activity.latitude %>, <%= activity.longitude %>),
       type: '<%= @activity.activity_type.icon %>',
