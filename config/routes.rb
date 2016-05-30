@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :cluster_users
+  devise_for :users, :controllers => {:registrations => "registrations"}
 #  get "activities" => "activities#index"
 #  get "activities/new" => "activities#new", as: "new_activity"
 #  get "activities/:id/edit" => "activities#edit", as: "edit_activity"
@@ -11,7 +13,10 @@ resources :activities do
     get 'stats'
   end
 end
+get 'activities/cluster/:cluster' => 'activities#index'
 
+get "clusters" => "clusters#index"
+post "clusters" => "clusters#new"
 
   root "activities#index"
 end

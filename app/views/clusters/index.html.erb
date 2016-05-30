@@ -1,0 +1,21 @@
+<table>
+  <thead>
+    <tr>
+      <th>Cluster</th>
+      <th>Default?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @userclusters.each do |usercluster| %>
+      <tr>
+        <td><%= usercluster.cluster.name %></td>
+        <td><input type="radio" name="default" value="<%= usercluster.cluster.id %>"<% if usercluster.default %> checked="checked"<% end %>></td>
+      </tr>
+    <% end %>
+    <tr>
+      <%= form_for @cluster do |f| %>
+        <td><%= f.text_field :name %></td>
+        <td><%= f.submit 'Add' %></td>
+      <% end %>
+  </tbody>
+</table>

@@ -5,7 +5,7 @@ class CreateActivities < ActiveRecord::Migration
       t.string :location
       t.integer :participants, :default => 0
       t.text :comments
-      t.integer :activity_type_id
+      t.references :activity_type, index: true, foreign_key: true
       t.timestamps null: false
     end
   end

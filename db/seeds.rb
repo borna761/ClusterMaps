@@ -10,3 +10,5 @@ ActivityType.create(:name => 'Children\'s Class', :icon => 'childrenClasses')
 ActivityType.create(:name => 'Devotional Meeting', :icon => 'devotionalMeetings')
 ActivityType.create(:name => 'Junior Youth Group', :icon => 'juniorYouthGroups')
 ActivityType.create(:name => 'Study Circle', :icon => 'studyCircles')
+Cluster.delete_all
+Cluster.create(:name => 'Test Cluster');

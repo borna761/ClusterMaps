@@ -7,6 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if user_signed_in? %>
+    <header class="site-header">
+      <nav class="site-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/clusters">Clusters</a></li>
+          <li><%= link_to 'Profile', edit_user_registration_path %></li>
+          <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
+        </ul>
+      </nav>
+    </header>
+  <% end %>
+
 
 <%= yield %>
 
