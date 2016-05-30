@@ -81,7 +81,7 @@ private
     @userclusters = current_user.cluster_users.joins(:cluster).order("clusters.name")
     @defaultcluster = @userclusters.find_by(:default => true).cluster
 
-    if params[:cluster].present?
+    if params[:cluster].present? && (params[:cluster].in? current_user.cluster_users.map(&:cluster_id))
       @selectedcluster = Cluster.find(params[:cluster])
     else
       @selectedcluster = @defaultcluster
