@@ -65,5 +65,5 @@ function geoLocate(map) {
 }
 
 function redirectCluster(clusterId) {
-  window.document.location.href = "/?cluster=" + clusterId
+  window.document.location.href = "/activities/cluster/" + clusterId
 }

@@ -1,6 +1,6 @@
 <div id="map"></div>
 <div id="clusters">
-  <select onchange="redirectCluster(this.options[this.selectedIndex].value);">
+  <select id="selectCluster" onchange="redirectCluster(this.options[this.selectedIndex].value);">
     <% @userclusters.each do |usercluster| %>
       <option value="<%= usercluster.cluster.id %>"<% if usercluster.cluster.id == @selectedcluster.id %> selected="selected"<% end %>><%= usercluster.cluster.name %></option>
     <% end %>

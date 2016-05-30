@@ -86,13 +86,16 @@ function addMarkerFromClick(location) {
     map: map
   });
 
-  var splitLocations = {
+  var cluster_id = $("#selectCluster").val();
+
+  var parameters = {
     latitude: location.lat(),
-    longitude: location.lng()
+    longitude: location.lng(),
+    cluster_id: cluster_id
   };
 
   $.ajax({
-    url: '/activities/new?' + jQuery.param({activity: splitLocations}) + '#chunked=true',
+    url: '/activities/new?' + jQuery.param({activity: parameters}) + '#chunked=true',
     type: 'GET',
     async: false,
     success: function(html) {

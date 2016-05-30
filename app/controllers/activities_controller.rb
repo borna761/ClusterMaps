@@ -2,20 +2,11 @@ class ActivitiesController < ApplicationController
 
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :get_cluster, only: [:index, :stats]
 
   respond_to :html
 
   def index
-    @userclusters = current_user.cluster_users.joins(:cluster).order("clusters.name")
-    @defaultcluster = @userclusters.find_by(:default => true).cluster
-
-    if params[:cluster].present?
-      @selectedcluster = Cluster.find(params[:cluster])
-    else
-      @selectedcluster = @defaultcluster
-    end
-
-    @clusteractivities = @selectedcluster.activities
     @cc = @clusteractivities.joins(:activity_type).where("activity_types.name" => "Children's Class")
     @dm = @clusteractivities.joins(:activity_type).where("activity_types.name" => "Devotional Meeting")
     @jy = @clusteractivities.joins(:activity_type).where("activity_types.name" => "Junior Youth Group")
@@ -73,7 +64,7 @@ class ActivitiesController < ApplicationController
 
   def stats
     activityType = params[:activityType]
-    @activities = ActivityType.find_by_icon(activityType).activities.order(:id)
+    @activities = @clusteractivities.joins(:activity_type).where("activity_types.icon" => activityType).order(:id) #ActivityType.find_by_icon(activityType).activities.order(:id)
     respond_to do |format|
       format.html
       format.json { render json: @activities }
@@ -86,8 +77,21 @@ private
     @activity = Activity.find(params[:id])
   end
 
+  def get_cluster
+    @userclusters = current_user.cluster_users.joins(:cluster).order("clusters.name")
+    @defaultcluster = @userclusters.find_by(:default => true).cluster
+
+    if params[:cluster].present?
+      @selectedcluster = Cluster.find(params[:cluster])
+    else
+      @selectedcluster = @defaultcluster
+    end
+
+    @clusteractivities = @selectedcluster.activities
+  end
+
   def activity_params
-    params.require(:activity).permit(:startDate, :longitude, :latitude, :participants, :comments, :hostedBy, :uniquefield, :teacherTutorAnimator, :activity_type_id)
+    params.require(:activity).permit(:startDate, :longitude, :latitude, :participants, :comments, :hostedBy, :uniquefield, :teacherTutorAnimator, :activity_type_id, :cluster_id)
   end
 
 end
