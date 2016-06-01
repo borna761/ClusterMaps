@@ -5,5 +5,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :cluster_users, dependent: :destroy
-  has_many :clusters, through: :cluster_users, source: :cluster
+  has_many :clusters, through: :cluster_users
+
+  def fullname
+    return firstname + " " + lastname
+  end
+
+  def fullname_with_email
+    return fullname + " <" + email + ">"
+  end
 end

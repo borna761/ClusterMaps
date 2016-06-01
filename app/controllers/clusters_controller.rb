@@ -3,13 +3,13 @@ class ClustersController < ApplicationController
 
   def index
     @userclusters = current_user.cluster_users.includes(:cluster).order("clusters.name")
-    @cluster = Cluster.new
+    @otherusers = User.where.not(id: current_user.id)
   end
 
   def new
     @cluster = Cluster.new(cluster_params)
     if @cluster.save
-      @cluster.cluster_users.create!(user: current_user)
+      @cluster.cluster_users.create(user: current_user)
     end
     redirect_to clusters_path
   end

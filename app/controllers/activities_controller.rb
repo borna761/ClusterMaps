@@ -68,9 +68,8 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @activities }
-      end
+    end
   end
-
 
 private
   def set_activity
@@ -81,7 +80,7 @@ private
     @userclusters = current_user.cluster_users.joins(:cluster).order("clusters.name")
     @defaultcluster = @userclusters.find_by(:default => true).cluster
 
-    if params[:cluster].present? && (params[:cluster].in? current_user.cluster_users.map(&:cluster_id))
+    if params[:cluster].present? && (params[:cluster].to_i.in? current_user.cluster_users.map(&:cluster_id))
       @selectedcluster = Cluster.find(params[:cluster])
     else
       @selectedcluster = @defaultcluster
