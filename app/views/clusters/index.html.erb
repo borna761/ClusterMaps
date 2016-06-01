@@ -29,10 +29,7 @@
       </tr>
     <% end %>
     <tr>
-      <%= form_for Cluster.new do |f| %>
-        <td><%= f.text_field :name %></td>
-        <td><%= f.submit 'Add' %></td>
-      <% end %>
+      <td colspan="5"><%= form_for Cluster.new do |f| %><%= f.text_field :name %><%= f.submit 'Add new cluster' %><% end %></td>
     </tr>
   </tbody>
 </table>
