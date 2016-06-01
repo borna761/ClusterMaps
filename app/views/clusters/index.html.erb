@@ -2,18 +2,34 @@
   <thead>
     <tr>
       <th>Cluster</th>
+      <th>Share with</th>
+      <th></th>
       <th>Default?</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
-    <% @userclusters.each do |usercluster| %>
-      <tr>
-        <td><%= usercluster.cluster.name %></td>
-        <td><input type="radio" name="default" value="<%= usercluster.cluster.id %>"<% if usercluster.default %> checked="checked"<% end %>></td>
+    <% @userclusters.each do |usercluster|
+      @currentcluster = usercluster.cluster
+      @excluded = @otherusers.where.not("id in (?)", @currentcluster.users.collect{|u| u.id}) %>
+        <tr id="cluster<%= @currentcluster.id %>"<% if usercluster.default %> style="font-weight: bold;"<% end %>>
+          <td><%= @currentcluster.name %><% if @currentcluster.users.count > 1 %> (shared)<% end %></td>
+          <% if (usercluster.cluster.id == 1) || (@excluded.count < 1) %>
+            <td></td><td></td>
+          <% else %>
+          <%= form_for ClusterUser.new do |f| %>
+            <%= f.hidden_field :cluster, :value => usercluster.cluster.id, :id => 'clusterId' %>
+            <%= content_tag :td, f.collection_select(:user, @excluded, :id, :fullname_with_email, { prompt: 'Share with' }) %>
+            <td><%= f.submit 'Share' %></td>
+          <% end %>
+        <% end %>
+        <td><input type="radio" name="defaultCluster" value="<%= usercluster.cluster.id %>"<% if usercluster.default %> checked="checked"<% end %> onchange="makeDefaultCluster(this);"></td>
+        <td>
+          <% if usercluster.cluster.id != 1 %><%= button_to 'Delete', cluster_users_path(:id => usercluster.id), :method => :delete %><% end %></td>
       </tr>
     <% end %>
     <tr>
-      <%= form_for @cluster do |f| %>
+      <%= form_for Cluster.new do |f| %>
         <td><%= f.text_field :name %></td>
         <td><%= f.submit 'Add' %></td>
       <% end %>

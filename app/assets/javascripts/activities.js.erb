@@ -121,10 +121,10 @@ function viewActivityDetail(activity) {
   var activityDiv = "#" + activity + "Div";
   if (!$(activityDiv).is(":visible")) {
     $.ajax({
-      url: 'activities/stats',
+      url: '/activities/stats',
       type: 'GET',
       dataType: 'json',
-      data: {activityType: activity},
+      data: {activityType: activity, cluster: $("#selectCluster").val()},
       success: function(result) {
         var activityInformation = "";
         for (var key in result) {
@@ -139,6 +139,9 @@ function viewActivityDetail(activity) {
           activityInformation += "</a><br>\n";
         }
         $(activityDiv).html(activityInformation);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert(textStatus + " and " + errorThrown);
       }
     });
     $(activityDiv).show();

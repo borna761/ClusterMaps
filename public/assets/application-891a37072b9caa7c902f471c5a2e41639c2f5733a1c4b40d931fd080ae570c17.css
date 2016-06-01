@@ -1,0 +1,41 @@
+/* line 4, C:/Users/borna/OneDrive/Programming/ClusterMaps/app/assets/stylesheets/activities.scss */
+#map {
+  float: left;
+  height: 800px;
+  width: 1400px;
+}
+
+/* line 9, C:/Users/borna/OneDrive/Programming/ClusterMaps/app/assets/stylesheets/activities.scss */
+#legend {
+  background: white;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+/* line 15, C:/Users/borna/OneDrive/Programming/ClusterMaps/app/assets/stylesheets/activities.scss */
+#activities {
+  float: left;
+  padding: 10px;
+  width: 450px;
+}
+
+/* line 21, C:/Users/borna/OneDrive/Programming/ClusterMaps/app/assets/stylesheets/activities.scss */
+.activitiesDiv, .uniquefieldDiv, #teacherTutorAnimatorDiv {
+  display: none;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+
