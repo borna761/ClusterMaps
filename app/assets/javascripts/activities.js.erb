@@ -34,6 +34,7 @@ function initMap() {
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
     zoom: 11,
+    streetViewControl: false,
     styles: [
       {
         featureType: 'poi',
