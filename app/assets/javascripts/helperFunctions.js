@@ -1,3 +1,9 @@
+function hideUniqueField() {
+  $(".uniquefieldDiv").hide();
+  $("#uniquefieldLabel").text("");
+  $("#uniquefieldLabel").val("");
+}
+
 function updateActivitySide(activityName) {
   var activityDiv = "#" + activityName + "Div";
   if ($(activityDiv).is(":visible")) {
