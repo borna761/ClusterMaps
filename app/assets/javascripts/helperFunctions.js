@@ -18,6 +18,7 @@ function openInfoWindow(html, marker)
   closeInfoWindow();
   infowindow.setContent(html);
   infowindow.open(map, marker);
+  map.setCenter(marker.getPosition());
 }
 
 function closeInfoWindow(map)

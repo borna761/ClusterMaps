@@ -34,6 +34,7 @@ function initMap() {
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
     zoom: 11,
+    streetViewControl: false,
     styles: [
       {
         featureType: 'poi',
@@ -192,34 +193,35 @@ function changeIcon() {
     activityIcon = icons[activityCategory].icon;
     tempMarker.setIcon(activityIcon);
     $("#submitButton").prop('disabled', false);
+    showHideUniqueField(activityCategory);
   } else {
     activityCategory = "";
     tempMarker.setIcon(newIcon);
     $("#submitButton").prop('disabled', true);
+    hideUniqueField();
   }
-  showHideUniqueField(activityCategory);
 }
 
 function showHideUniqueField(activityCategory) {
-  if (activityCategory != 'devotionalMeetings') {
+  if (activityCategory == 'devotionalMeetings') {
+      $("#teacherTutorAnimatorDiv").hide();
+    }
+  else {
     $(".uniquefieldDiv").show();
     $("#teacherTutorAnimatorDiv").show();
     if (activityCategory == 'childrenClasses') {
       $("#uniquefieldLabel").text("Age range");
       $("#teacherTutorAnimatorLabel").text("Teacher(s)");
     }
-    else if (activityCategory == 'studyCircles') {
-      $("#uniquefieldLabel").text("Book");
-      $("#teacherTutorAnimatorLabel").text("Tutor(s)");
-    }
     else {
-      $("#teacherTutorAnimatorLabel").text("Animator(s)");
-      hideUniqueField();
+      $("#uniquefieldLabel").text("Book");
+      if (activityCategory == 'studyCircles') {
+        $("#teacherTutorAnimatorLabel").text("Tutor(s)");
+      }
+      else {
+        $("#teacherTutorAnimatorLabel").text("Animator(s)");
+      }
     }
-  }
-  else {
-    hideUniqueField();
-    $("#teacherTutorAnimatorDiv").hide();
   }
 }
 
