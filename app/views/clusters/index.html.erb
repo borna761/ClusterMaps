@@ -18,7 +18,7 @@
           <td><%= @currentcluster.name %></td>
           <td>
             <ul>
-              <% @sharedWith.each do |sharedWith| %>
+              <% @sharedWith.order(:firstname).each do |sharedWith| %>
                 <li><%= sharedWith.fullname_with_email %></li>
               <% end %>
             </ul>
