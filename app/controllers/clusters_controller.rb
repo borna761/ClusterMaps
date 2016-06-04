@@ -6,7 +6,7 @@ class ClustersController < ApplicationController
     @otherusers = User.where.not(id: current_user.id)
   end
 
-  def new
+  def create
     @cluster = Cluster.new(cluster_params)
     @cluster.owner = current_user
     if @cluster.save
