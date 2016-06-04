@@ -43,7 +43,7 @@
             <td><%= f.submit 'Change owner' %></td>
           <% end %>
         <% else %>
-          <td colspon="2"></td>
+          <td colspan="2"></td>
         <% end %>
         <td>
           <% if @currentcluster.owner == current_user %><%= button_to 'Delete', cluster_users_path(:id => usercluster.id), :method => :delete %><% end %>
