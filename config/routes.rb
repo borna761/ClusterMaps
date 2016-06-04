@@ -14,8 +14,7 @@ Rails.application.routes.draw do
   end
   get '/activities/cluster/:cluster' => 'activities#index'
 
-  get "/clusters" => "clusters#index"
-  post "/clusters" => "clusters#new"
+  resources :clusters
 
   post "/cluster_users" => "cluster_users#create"
   patch "/cluster_users" => "cluster_users#update"
