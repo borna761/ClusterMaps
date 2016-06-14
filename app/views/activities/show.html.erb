@@ -24,7 +24,9 @@
 
 <div>
   <strong>Meets every:</strong>
-  <%= @activity.frequencyValue %> <%= @activity.frequencyUnit.pluralize(@activity.frequencyValue) %>
+  <% unless @activity.frequencyValue.nil? || @activity.frequencyUnit.nil? %>
+    <%= @activity.frequencyValue %> <%= @activity.frequencyUnit.pluralize(@activity.frequencyValue) %>
+  <% end %>
 </div>
 
 <div>
