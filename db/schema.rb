@@ -11,13 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531141316) do
+ActiveRecord::Schema.define(version: 20160613201307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
-    t.date     "startDate"
     t.integer  "participants",         default: 0
     t.text     "comments"
     t.integer  "activity_type_id"
@@ -29,6 +28,8 @@ ActiveRecord::Schema.define(version: 20160531141316) do
     t.string   "uniquefield"
     t.string   "teacherTutorAnimator"
     t.integer  "cluster_id"
+    t.integer  "frequencyValue"
+    t.string   "frequencyUnit"
   end
 
   add_index "activities", ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
@@ -53,7 +54,10 @@ ActiveRecord::Schema.define(version: 20160531141316) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "owner_id"
   end
+
+  add_index "clusters", ["owner_id"], name: "index_clusters_on_owner_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -78,4 +82,5 @@ ActiveRecord::Schema.define(version: 20160531141316) do
   add_foreign_key "activities", "activity_types"
   add_foreign_key "cluster_users", "clusters"
   add_foreign_key "cluster_users", "users"
+  add_foreign_key "clusters", "users", column: "owner_id"
 end
