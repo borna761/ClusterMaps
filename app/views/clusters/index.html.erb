@@ -6,6 +6,8 @@
       <th>Share with</th>
       <th></th>
       <th>Default?</th>
+      <th>Make owner</th>
+      <th></th>
       <th>Delete</th>
     </tr>
   </thead>
@@ -18,23 +20,34 @@
           <td><%= @currentcluster.name %></td>
           <td>
             <ul>
-              <% @sharedWith.each do |sharedWith| %>
+              <% @sharedWith.order(:firstname).each do |sharedWith| %>
                 <li><%= sharedWith.fullname_with_email %></li>
               <% end %>
             </ul>
           </td>
-          <% if (usercluster.cluster.id == 1) || (@notSharedWith.count < 1) %>
-            <td></td><td></td>
+          <% if @currentcluster.owner == current_user && @notSharedWith.count > 0 %>
+            <%= form_for ClusterUser.new do |f| %>
+              <%= f.hidden_field :cluster, :value => @currentcluster.id, :id => 'clusterId' %>
+              <%= content_tag :td, f.collection_select(:user, @notSharedWith, :id, :fullname_with_email, { prompt: 'Share with' }) %>
+              <td><%= f.submit 'Share' %></td>
+            <% end %>
           <% else %>
-          <%= form_for ClusterUser.new do |f| %>
-            <%= f.hidden_field :cluster, :value => usercluster.cluster.id, :id => 'clusterId' %>
-            <%= content_tag :td, f.collection_select(:user, @notSharedWith, :id, :fullname_with_email, { prompt: 'Share with' }) %>
-            <td><%= f.submit 'Share' %></td>
+            <td colspan="2"></td>
           <% end %>
-        <% end %>
-        <td><input type="radio" name="defaultCluster" value="<%= usercluster.cluster.id %>"<% if usercluster.default %> checked="checked"<% end %> onchange="makeDefaultCluster(this);"></td>
         <td>
-          <% if usercluster.cluster.id != 1 %><%= button_to 'Delete', cluster_users_path(:id => usercluster.id), :method => :delete %><% end %></td>
+          <input type="radio" name="defaultCluster" value="<%= usercluster.cluster.id %>"<% if usercluster.default %> checked="checked"<% end %> onchange="makeDefaultCluster(this);">
+        </td>
+        <% if @currentcluster.owner == current_user && @sharedWith.count > 0 %>
+          <%= form_for @currentcluster do |f| %>
+            <%= content_tag :td, f.collection_select(:owner, @sharedWith, :id, :fullname_with_email, { prompt: 'Select new owner' }) %>
+            <td><%= f.submit 'Change owner' %></td>
+          <% end %>
+        <% else %>
+          <td colspan="2"></td>
+        <% end %>
+        <td>
+          <% if @currentcluster.owner == current_user %><%= button_to 'Delete', cluster_users_path(:id => usercluster.id), :method => :delete %><% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
