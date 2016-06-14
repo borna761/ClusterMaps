@@ -11,13 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603183225) do
+ActiveRecord::Schema.define(version: 20160613201307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
-    t.date     "startDate"
     t.integer  "participants",         default: 0
     t.text     "comments"
     t.integer  "activity_type_id"
@@ -29,6 +28,8 @@ ActiveRecord::Schema.define(version: 20160603183225) do
     t.string   "uniquefield"
     t.string   "teacherTutorAnimator"
     t.integer  "cluster_id"
+    t.integer  "frequencyValue"
+    t.string   "frequencyUnit"
   end
 
   add_index "activities", ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree

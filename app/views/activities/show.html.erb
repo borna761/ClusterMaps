@@ -23,8 +23,8 @@
 <% end %>
 
 <div>
-  <strong>Start date:</strong>
-  <%= @activity.startDate %>
+  <strong>Meets every:</strong>
+  <%= @activity.frequencyValue %> <%= @activity.frequencyUnit.pluralize(@activity.frequencyValue) %>
 </div>
 
 <div>

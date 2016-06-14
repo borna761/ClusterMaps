@@ -10,8 +10,12 @@
   </div>
 
   <div>
-    <%= f.label 'Start date' %>
-    <%= f.text_field :startDate %>
+    <%= f.label 'Every' %>
+    <%= f.select :frequencyValue, (0..10) %>
+  </div>
+
+  <div>
+    <%= f.select :frequencyUnit, options_for_select(frequencyUnits, @activity.frequencyUnit) %>
   </div>
 
   <div>
