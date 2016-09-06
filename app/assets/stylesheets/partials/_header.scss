@@ -21,20 +21,30 @@
     display: none;
 
     &.logo {
+      text-align: left;
       display: block;
-      margin-top: -20px;
+      margin-top: -32px;
       position: absolute;
       top: 50%;
       left: 0;
 
       a {
-        width: 240px;
+        font-size: 18px;
+        width: 160px;
         overflow: hidden;
         padding: 0;
 
         &:after {
           display: none;
         }
+      }
+
+      svg {
+        vertical-align: middle;
+        fill: $color-brand-highlight-300;
+        display: inline-block;
+        position: relative;
+        top: 2px;
       }
     }
 
