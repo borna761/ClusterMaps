@@ -1,0 +1,123 @@
+.site-header {
+  position: relative;
+  background-color: $color-brand-500;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  z-index: 10;
+}
+
+.site-nav {
+  @extend %nav-inline;
+  @extend %site-width;
+  height: $site-header-height;
+  position: relative;
+
+  ul {
+    text-align: right;
+    margin-right: -($global-spacing * 2);
+  }
+
+  li {
+    padding: 0 $global-spacing;
+    display: none;
+
+    &.logo {
+      text-align: left;
+      display: block;
+      margin-top: -32px;
+      position: absolute;
+      top: 50%;
+      left: 0;
+
+      a {
+        font-size: 18px;
+        width: 160px;
+        overflow: hidden;
+        padding: 0;
+
+        &:after {
+          display: none;
+        }
+      }
+
+      svg {
+        vertical-align: middle;
+        fill: $color-brand-highlight-300;
+        display: inline-block;
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    &.is-current {
+      a {
+        &:after {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  a {
+    font-size: 16px;
+    line-height: 64px;
+    color: $color-white;
+    padding: 0 $global-spacing;
+    position: relative;
+
+    &:after {
+      content: '';
+      opacity: 0;
+      visibility: hidden;
+      height: 2px;
+      position: absolute;
+      right: $global-spacing;
+      bottom: ($global-spacing * 2);
+      left: $global-spacing;
+      background-color: $color-white;
+      transition: opacity $global-transition, visibility $global-transition;
+    }
+
+    &:hover {
+      &:after {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  .show-site-nav & {
+    ul {
+      text-align: center;
+      padding-top: $site-header-height;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      background-color: $color-brand-500;
+    }
+
+    li {
+      display: block;
+
+      a {
+        &:hover {
+          &:after {
+            opacity: 0;
+            visibility: hidden;
+          }
+        }
+      }
+
+      &.logo {
+        top: 32px;
+      }
+    }
+  }
+
+  @include breakpoint(medium) {
+    li:not(.logo) {
+      display: inline-block;
+    }
+  }
+}
