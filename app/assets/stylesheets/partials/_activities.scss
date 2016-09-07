@@ -1,20 +1,75 @@
-#map {
-  float: left;
-  height: 800px;
-  width: 1400px;
-}
-#legend {
-  background: white;
-  padding: 10px;
-  border: 1px solid black;
+.map {
+  width: 100%;
+  height: calc(80vh - #{$site-header-height});
 }
 
-#activities {
-  float: left;
+.map-legend {
   padding: 10px;
-  width: 450px;
+  border: 1px solid $color-black;
+  background: $color-white;
+
+  div + div {
+    margin-top: $global-spacing;
+  }
+
+  img {
+    vertical-align: middle;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: $global-spacing;
+  }
 }
 
-.activitiesDiv, .uniquefieldDiv, #teacherTutorAnimatorDiv {
+.map-controls {
+  padding: $global-spacing;
+}
+
+.map-controls-clusters {
+  margin-bottom: $global-spacing;
+
+  select {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+.map-controls-activities {
+}
+
+.activity {
+  + .activity {
+    margin-top: $global-spacing;
+  }
+}
+
+.activity-input {
+  vertical-align: middle;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  margin: 0 $global-spacing 0 0;
+}
+
+.activity-btn {
+  font-size: 16px;
+
+  &.show-activity {
+    display: block;
+  }
+
+  &.show-activity + .show-activity {
+    margin-top: $global-spacing;
+  }
+}
+
+.activity-list,
+.uniquefieldDiv,
+#teacherTutorAnimatorDiv {
   display: none;
+}
+
+.activity-list {
+  padding: $global-spacing;
 }

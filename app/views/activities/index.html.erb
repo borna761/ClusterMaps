@@ -1,23 +1,33 @@
-<div id="map"></div>
-<div id="clusters">
-  <select id="selectCluster" onchange="redirectCluster(this.options[this.selectedIndex].value);">
-    <% @userclusters.each do |usercluster| %>
-      <option value="<%= usercluster.cluster.id %>"<% if usercluster.cluster.id == @selectedcluster.id %> selected="selected"<% end %>><%= usercluster.cluster.name %></option>
-    <% end %>
-  </select>
-</div>
-<div id="activities">
-  <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')"><a href="#" onclick="viewActivityDetail('childrenClasses')">Children's Classes: <span id="childrenClassesCount"><%= @cc.nil? ? 0 : @cc.count %></span></a><br />
-  <div id="childrenClassesDiv" class="activitiesDiv"></div>
-  <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')"><a href="#" onclick="viewActivityDetail('devotionalMeetings')">Devotional Meetings: <span id="devotionalMeetingsCount"><%= @dm.nil? ? 0 : @dm.count %></span></a><br />
-  <div id="devotionalMeetingsDiv" class="activitiesDiv"></div>
-  <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')"><a href="#" onclick="viewActivityDetail('juniorYouthGroups')">Junior Youth Groups: <span id="juniorYouthGroupsCount"><%= @jy.nil? ? 0 : @jy.count %></span></a><br />
-  <div id="juniorYouthGroupsDiv" class="activitiesDiv"></div>
-  <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')"><a href="#" onclick="viewActivityDetail('studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.nil? ? 0 : @sc.count %></span></a><br />
-  <div id="studyCirclesDiv" class="activitiesDiv"></div>
+<div id="map" class="map"></div>
+<div class="map-controls">
+  <div id="clusters" class="map-controls-clusters">
+    <select id="selectCluster" onchange="redirectCluster(this.options[this.selectedIndex].value);">
+      <% @userclusters.each do |usercluster| %>
+        <option value="<%= usercluster.cluster.id %>"<% if usercluster.cluster.id == @selectedcluster.id %> selected="selected"<% end %>><%= usercluster.cluster.name %></option>
+      <% end %>
+    </select>
+  </div>
+  <div id="activities" class="map-controls-activities">
+    <div class="activity">
+      <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')" class="activity-input"><button class="btn activity-btn show-list" onclick="viewActivityDetail('childrenClasses')">Children's Classes: <span id="childrenClassesCount"><%= @cc.nil? ? 0 : @cc.count %></span></button>
+      <div id="childrenClassesDiv" class="activity-list"></div>
+    </div>
+    <div class="activity">
+      <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')" class="activity-input"><button class="btn activity-btn" onclick="viewActivityDetail('devotionalMeetings')">Devotional Meetings: <span id="devotionalMeetingsCount"><%= @dm.nil? ? 0 : @dm.count %></span></button>
+      <div id="devotionalMeetingsDiv" class="activity-list"></div>
+    </div>
+    <div class="activity">
+      <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')" class="activity-input"><button class="btn activity-btn" onclick="viewActivityDetail('juniorYouthGroups')">Junior Youth Groups: <span id="juniorYouthGroupsCount"><%= @jy.nil? ? 0 : @jy.count %></span></button>
+      <div id="juniorYouthGroupsDiv" class="activity-list"></div>
+    </div>
+    <div class="activity">
+      <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')" class="activity-input"><button class="btn activity-btn" onclick="viewActivityDetail('studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.nil? ? 0 : @sc.count %></span></button>
+      <div id="studyCirclesDiv" class="activity-list"></div>
+    </div>
+  </div>
 </div>
 
-<div id="legend"></div>
+<div id="legend" class="map-legend"></div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH3gr943zfhEw8Q9QACFjzFZyzilYVSgs&callback=initMap" async defer></script>
 <script>
