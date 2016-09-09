@@ -129,7 +129,7 @@ function viewActivityDetail(activity) {
       success: function(result) {
         var activityInformation = "";
         for (var key in result) {
-          activityInformation += "<a href=\"#\" onclick=\"triggerMarker(" + result[key].id + ")\">";
+          activityInformation += "<button class=\"btn activity-btn show-activity\" onclick=\"triggerMarker(" + result[key].id + ")\">";
           activityInformation += "Host: " + result[key].hostedBy + " | Participants: " + result[key].participants + "\n";
           if (activity == 'childrenClasses') {
             activityInformation += " | Age range: " + result[key].uniquefield + "\n";
@@ -137,7 +137,7 @@ function viewActivityDetail(activity) {
           else if (activity == 'studyCircles') {
             activityInformation += " | Book: " + result[key].uniquefield + "\n";
           }
-          activityInformation += "</a><br>\n";
+          activityInformation += "</button>\n";
         }
         $(activityDiv).html(activityInformation);
       },
