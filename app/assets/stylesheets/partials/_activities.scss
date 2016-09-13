@@ -22,7 +22,7 @@
 }
 
 .map-controls {
-  padding: $global-spacing;
+  padding: ($global-spacing * 4) ($global-spacing * 2);
 }
 
 .map-controls-clusters {
@@ -38,9 +38,9 @@
 }
 
 .activity {
-  + .activity {
-    margin-top: $global-spacing;
-  }
+  vertical-align: top;
+  display: inline-block;
+  margin-right: ($global-spacing * 4);
 }
 
 .activity-input {
@@ -55,21 +55,60 @@
 .activity-btn {
   font-size: 16px;
 
-  &.show-activity {
-    display: block;
-  }
+  &.show-list {
+    position: relative;
 
-  &.show-activity + .show-activity {
-    margin-top: $global-spacing;
+    &::after {
+      content: '';
+      width: 0;
+      height: 0;
+      margin-top: -4px;
+      position: absolute;
+      top: 50%;
+      right: -($global-spacing * 2);
+      border-width: 8px 5px 0;
+      border-style: solid;
+      border-color: $color-brand-highlight-500 transparent transparent;
+    }
+
+    &.is-open {
+      &::after {
+        border-width: 0 5px 8px;
+        border-color: transparent transparent $color-brand-highlight-500;
+      }
+    }
   }
 }
 
-.activity-list,
+.activity-table,
 .uniquefieldDiv,
 #teacherTutorAnimatorDiv {
   display: none;
 }
 
-.activity-list {
+.activity-table {
   padding: $global-spacing;
+  margin-top: $global-spacing;
+  margin-bottom: ($global-spacing * 2);
+  margin-left: $global-spacing;
+
+  th,
+  td {
+    text-align: center;
+    padding: $global-spacing ($global-spacing * 2);
+  }
+
+  th:first-child,
+  td:first-child {
+    text-align: left;
+  }
+
+  th {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  td {
+    cursor: pointer;
+  }
 }
