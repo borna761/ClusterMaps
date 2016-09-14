@@ -52,34 +52,6 @@
   margin: 0 $global-spacing 0 0;
 }
 
-.activity-btn {
-  font-size: 16px;
-
-  &.show-list {
-    position: relative;
-
-    &::after {
-      content: '';
-      width: 0;
-      height: 0;
-      margin-top: -4px;
-      position: absolute;
-      top: 50%;
-      right: -($global-spacing * 2);
-      border-width: 8px 5px 0;
-      border-style: solid;
-      border-color: $color-brand-highlight-500 transparent transparent;
-    }
-
-    &.is-open {
-      &::after {
-        border-width: 0 5px 8px;
-        border-color: transparent transparent $color-brand-highlight-500;
-      }
-    }
-  }
-}
-
 .activity-table,
 .uniquefieldDiv,
 #teacherTutorAnimatorDiv {

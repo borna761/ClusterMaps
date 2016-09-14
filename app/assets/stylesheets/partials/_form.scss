@@ -1,0 +1,22 @@
+.form-input {
+  font-size: 14px;
+  min-height: 30px;
+  padding: 0 $global-spacing;
+  margin: 0;
+  border: 1px solid $color-brand-100;
+  border-radius: $global-radius-sm;
+  transition: border-color $global-transition;
+
+  &:focus {
+    border-color: $color-brand-300;
+  }
+
+  &.is-inline {
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  &.is-select {
+    height: 30px;
+  }
+}
