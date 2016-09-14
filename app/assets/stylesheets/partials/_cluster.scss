@@ -1,0 +1,24 @@
+.new_cluster {
+  margin-bottom: ($global-spacing * 4);
+}
+
+.cluster-table {
+  th,
+  td {
+    text-align: left;
+    padding: $global-spacing ($global-spacing * 2);
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  th {
+    font-size: 14px;
+    font-weight: 700;
+  }
+}
