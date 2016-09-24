@@ -19,7 +19,8 @@
   &.is-primary {
     background-color: $color-brand-400;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: lighten($color-brand-400, 10);
     }
   }
@@ -27,7 +28,8 @@
   &.is-danger {
     background-color: $color-error;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: lighten($color-error, 10);
     }
   }
@@ -39,6 +41,11 @@
 
   &.is-block {
     display: block;
+    width: 100%;
+  }
+
+  &.form-btn {
+    padding: $global-spacing;
   }
 }
 

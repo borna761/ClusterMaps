@@ -1,3 +1,36 @@
+.form-group {
+  @extend %centerBlock;
+  max-width: 320px;
+  margin-top: ($global-spacing * 4);
+}
+
+.form-heading {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 33px;
+  color: $color-content;
+  padding-bottom: 40px;
+}
+
+.form-item {
+  display: block;
+  width: 100%;
+  padding-bottom: ($global-spacing * 2);
+}
+
+.form-label {
+  font-size: 14px;
+  display: block;
+  padding-bottom: ($global-spacing / 2);
+  cursor: pointer;
+
+  &.is-inline {
+    vertical-align: middle;
+    display: inline-block;
+    padding: 0;
+  }
+}
+
 .form-input {
   font-size: 14px;
   min-height: 30px;
@@ -16,7 +49,40 @@
     display: inline-block;
   }
 
+  &.is-block {
+    display: block;
+    width: 100%;
+  }
+
   &.is-select {
     height: 30px;
+  }
+
+  &.is-checkbox {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin-right: ($global-spacing / 2);
+    border: 0;
+  }
+}
+
+.form-links {
+  @extend %centerBlock;
+  max-width: 320px;
+  padding-top: ($global-spacing * 2);
+
+  a {
+    font-size: 14px;
+    color: $color-brand-highlight-500;
+    text-align: center;
+    display: block;
+    padding: $global-spacing 0;
+    transition: color $global-transition;
+
+    &:hover,
+    &:focus {
+      color: $color-brand-highlight-300;
+    }
   }
 }
