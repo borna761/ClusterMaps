@@ -93,3 +93,57 @@
     }
   }
 }
+
+.form-error {
+  color: $color-white;
+  text-align: left;
+  padding: ($global-spacing * 2);
+  margin: 0 0 ($global-spacing * 2);
+  border: 1px solid darken($color-border, 20);
+  border-radius: $global-radius-sm;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  background-color: $color-border;
+
+  h2 {
+    font-size: 16px;
+    line-height: 120%;
+  }
+
+  p,
+  li {
+    padding: 0 0 $global-spacing;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  ul {
+    padding: $global-spacing 0 0 ($global-spacing * 2);
+  }
+
+  li {
+    list-style-type: disc;
+  }
+
+  &.alert-success {
+    border-color: darken($color-success, 20);
+    background-color: $color-success;
+  }
+
+  &.alert-info {
+    border-color: darken($color-info, 20);
+    background-color: $color-info;
+  }
+
+  &.alert-warning {
+    color: darken($color-warning, 70);
+    border-color: darken($color-warning, 20);
+    background-color: $color-warning;
+  }
+
+  &.alert-danger {
+    border-color: darken($color-error, 20);
+    background-color: $color-error;
+  }
+}
