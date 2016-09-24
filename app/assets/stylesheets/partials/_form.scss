@@ -20,6 +20,7 @@
 
 .form-label {
   font-size: 14px;
+  color: $color-content;
   display: block;
   padding-bottom: ($global-spacing / 2);
   cursor: pointer;
@@ -31,8 +32,14 @@
   }
 }
 
+.form-help {
+  font-size: 14px;
+  color: $color-content-light;
+}
+
 .form-input {
   font-size: 14px;
+  color: $color-input;
   min-height: 30px;
   padding: 0 $global-spacing;
   margin: 0;
