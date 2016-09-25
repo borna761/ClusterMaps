@@ -1,5 +1,45 @@
+.form-group {
+  @extend %centerBlock;
+  max-width: 320px;
+  margin-top: ($global-spacing * 4);
+}
+
+.form-heading {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 33px;
+  color: $color-content;
+  padding-bottom: 40px;
+}
+
+.form-item {
+  display: block;
+  width: 100%;
+  padding-bottom: ($global-spacing * 2);
+}
+
+.form-label {
+  font-size: 14px;
+  color: $color-content;
+  display: block;
+  padding-bottom: ($global-spacing / 2);
+  cursor: pointer;
+
+  &.is-inline {
+    vertical-align: middle;
+    display: inline-block;
+    padding: 0;
+  }
+}
+
+.form-help {
+  font-size: 14px;
+  color: $color-content-light;
+}
+
 .form-input {
   font-size: 14px;
+  color: $color-input;
   min-height: 30px;
   padding: 0 $global-spacing;
   margin: 0;
@@ -16,7 +56,92 @@
     display: inline-block;
   }
 
+  &.is-block {
+    display: block;
+    width: 100%;
+  }
+
   &.is-select {
     height: 30px;
+  }
+
+  &.is-checkbox {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin-right: ($global-spacing / 2);
+    border: 0;
+  }
+}
+
+.form-links {
+  @extend %centerBlock;
+  max-width: 320px;
+  padding: ($global-spacing * 2) 0;
+
+  a {
+    font-size: 14px;
+    color: $color-brand-highlight-500;
+    text-align: center;
+    display: block;
+    padding: $global-spacing 0;
+    transition: color $global-transition;
+
+    &:hover,
+    &:focus {
+      color: $color-brand-highlight-300;
+    }
+  }
+}
+
+.form-error {
+  color: $color-white;
+  text-align: left;
+  padding: ($global-spacing * 2);
+  margin: 0 0 ($global-spacing * 2);
+  border: 1px solid darken($color-border, 20);
+  border-radius: $global-radius-sm;
+  background-color: $color-border;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 120%;
+  }
+
+  li {
+    line-height: 120%;
+    list-style-type: disc;
+    padding: 0 0 $global-spacing;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  ul {
+    padding: $global-spacing 0 0 ($global-spacing * 2);
+  }
+
+  &.alert-success {
+    border-color: darken($color-success, 20);
+    background-color: $color-success;
+  }
+
+  &.alert-info {
+    border-color: darken($color-info, 20);
+    background-color: $color-info;
+  }
+
+  &.alert-warning {
+    color: darken($color-warning, 70);
+    border-color: darken($color-warning, 20);
+    background-color: $color-warning;
+  }
+
+  &.alert-danger {
+    border-color: darken($color-error, 20);
+    background-color: $color-error;
   }
 }
