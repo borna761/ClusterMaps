@@ -34,7 +34,7 @@
               <%= form_for ClusterUser.new do |f| %>
                 <%= f.hidden_field :cluster, :value => @currentcluster.id, :id => 'clusterId' %>
                 <%= f.collection_select(:user, @notSharedWith, :id, :fullname_with_email, { prompt: 'Share with' }, class: 'form-input is-inline is-select') %>
-                <%= f.submit 'Share', class: 'btn is-primary is-inline' %>
+                <%= f.submit 'Share', class: 'btn is-positive is-inline' %>
               <% end %>
               </td>
             <% else %>

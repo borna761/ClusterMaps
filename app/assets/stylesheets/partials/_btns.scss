@@ -8,7 +8,8 @@
   background-color: transparent;
 
   &.is-primary,
-  &.is-danger {
+  &.is-danger,
+  &.is-positive {
     color: $color-white;
     min-height: 30px;
     padding: ($global-spacing / 2) $global-spacing;
@@ -31,6 +32,15 @@
     &:hover,
     &:focus {
       background-color: lighten($color-error, 10);
+    }
+  }
+
+  &.is-positive {
+    background-color: $color-success;
+
+    &:hover,
+    &:focus {
+      background-color: lighten($color-success, 10);
     }
   }
 
