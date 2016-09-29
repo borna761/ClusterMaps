@@ -5,6 +5,7 @@
 .cluster-table {
   th,
   td {
+    line-height: 120%;
     text-align: left;
     padding: $global-spacing ($global-spacing * 2);
 
@@ -20,5 +21,9 @@
   th {
     font-size: 14px;
     font-weight: 700;
+  }
+
+  td {
+    vertical-align: top;
   }
 }
