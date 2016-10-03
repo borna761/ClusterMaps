@@ -47,7 +47,7 @@
             <td>
             <%= form_for @currentcluster do |f| %>
               <%= f.collection_select(:owner, @sharedWith, :id, :fullname_with_email, { prompt: 'Select new owner' }, class: 'form-input is-inline is-select') %>
-              <%= f.submit 'Change owner', class: 'btn is-primary is-inline' %>
+              <%= f.submit 'Change owner', class: 'btn is-info is-inline' %>
             <% end %>
             </td>
           <% else %>
