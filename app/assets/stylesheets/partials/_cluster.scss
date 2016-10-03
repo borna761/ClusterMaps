@@ -34,4 +34,9 @@
       margin-top: 0;
     }
   }
+
+  .form-input.is-select {
+    width: 50%;
+    margin-right: ($global-spacing / 2);
+  }
 }
