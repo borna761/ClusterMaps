@@ -26,4 +26,12 @@
   td {
     vertical-align: top;
   }
+
+  li {
+    margin-top: $global-spacing;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
 }
