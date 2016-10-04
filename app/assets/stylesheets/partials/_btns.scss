@@ -9,7 +9,8 @@
 
   &.is-primary,
   &.is-danger,
-  &.is-positive {
+  &.is-positive,
+  &.is-info {
     color: $color-white;
     min-height: 30px;
     padding: ($global-spacing / 2) $global-spacing;
@@ -41,6 +42,15 @@
     &:hover,
     &:focus {
       background-color: lighten($color-success, 10);
+    }
+  }
+
+  &.is-info {
+    background-color: $color-info;
+
+    &:hover,
+    &:focus {
+      background-color: lighten($color-info, 10);
     }
   }
 

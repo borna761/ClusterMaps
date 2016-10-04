@@ -25,5 +25,23 @@
 
   td {
     vertical-align: top;
+
+    &.is-centered {
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+
+  li {
+    margin-top: $global-spacing;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .form-input.is-select {
+    width: 50%;
+    margin-right: ($global-spacing / 2);
   }
 }
