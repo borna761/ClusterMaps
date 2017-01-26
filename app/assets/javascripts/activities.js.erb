@@ -119,44 +119,49 @@ function addMarkerFromClick(location) {
 }
 
 function viewActivityDetail(event, activity) {
-  $('.btn.activity-btn.show-list').removeClass('is-open');
   $('.activity-table').hide();
-  $(event.target).addClass('is-open');
-  var activityTable = "#" + activity + "Table";
-  $.ajax({
-    url: '/activities/stats',
-    type: 'GET',
-    dataType: 'json',
-    data: {activityType: activity, cluster: $("#selectCluster").val()},
-    success: function(result) {
-      var activityInformation = "";
-      for (var key in result) {
-        activityInformation += "<tr onclick=\"triggerMarker(" + result[key].id + ")\">";
-        activityInformation += "<td>";
-        activityInformation += result[key].hostedBy;
-        activityInformation += "</td>";
-        activityInformation += "<td>";
-        activityInformation += result[key].participants;
-        activityInformation += "</td>";
-        if (activity == 'childrenClasses') {
-          activityInformation += "<td>";
-          activityInformation += result[key].uniquefield;
-          activityInformation += "<td>";
+  if ($(event.target).hasClass('is-open')) {
+    $(event.target).removeClass('is-open');
+  }
+  else {
+      $('.btn.activity-btn.show-list').removeClass('is-open');
+      $(event.target).addClass('is-open');
+      var activityTable = "#" + activity + "Table";
+      $.ajax({
+        url: '/activities/stats',
+        type: 'GET',
+        dataType: 'json',
+        data: {activityType: activity, cluster: $("#selectCluster").val()},
+        success: function(result) {
+          var activityInformation = "";
+          for (var key in result) {
+            activityInformation += "<tr onclick=\"triggerMarker(" + result[key].id + ")\">";
+            activityInformation += "<td>";
+            activityInformation += result[key].hostedBy;
+            activityInformation += "</td>";
+            activityInformation += "<td>";
+            activityInformation += result[key].participants;
+            activityInformation += "</td>";
+            if (activity == 'childrenClasses') {
+              activityInformation += "<td>";
+              activityInformation += result[key].uniquefield;
+              activityInformation += "<td>";
+            }
+            else if (activity == 'studyCircles') {
+              activityInformation += "<td>";
+              activityInformation += result[key].uniquefield;
+              activityInformation += "</td>";
+            }
+            activityInformation += "</tr>";
+          }
+          $(activityTable).html(activityInformation);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert(textStatus + " and " + errorThrown);
         }
-        else if (activity == 'studyCircles') {
-          activityInformation += "<td>";
-          activityInformation += result[key].uniquefield;
-          activityInformation += "</td>";
-        }
-        activityInformation += "</tr>";
-      }
-      $(activityTable).html(activityInformation);
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      alert(textStatus + " and " + errorThrown);
+      });
+      $(activityTable).parent().show();
     }
-  });
-  $(activityTable).parent().show();
 }
 
 function addMarker(activity) {
