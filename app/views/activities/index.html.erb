@@ -64,7 +64,11 @@
 
 <div id="legend" class="map-legend"></div>
 
+<% if Rails.env.production? %>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH3gr943zfhEw8Q9QACFjzFZyzilYVSgs&callback=initMap" async defer></script>
+<% else %>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVvxpIcyct7YlySMNqy136sAaOXYbBuio&callback=initMap" async defer></script>
+<% end %>
 <script>
 function setActivities() {
   var activities = [];
