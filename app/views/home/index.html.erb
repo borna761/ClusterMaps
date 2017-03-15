@@ -1,0 +1,86 @@
+<div id="map" class="map"></div>
+
+<div class="map-controls">
+  <div id="clusters" class="map-controls-clusters">
+    <select id="selectCluster" onchange="redirectCluster(this.options[this.selectedIndex].value);">
+      <% @userclusters.each do |usercluster| %>
+        <option value="<%= usercluster.cluster.id %>"<% if usercluster.cluster.id == @selectedcluster.id %> selected="selected"<% end %>><%= usercluster.cluster.name %></option>
+      <% end %>
+    </select>
+  </div>
+  <div id="activities" class="map-controls-activities">
+    <div class="activity">
+      <input type="checkbox" checked="true" onclick="toggleMarkers('childrenClasses')" class="activity-input"><button class="btn activity-btn show-list" onclick="viewActivityDetail(event, 'childrenClasses')">Children's Classes: <span id="childrenClassesCount"><%= @cc.nil? ? 0 : @cc.count %></span></button>
+    </div>
+    <div class="activity">
+      <input type="checkbox" checked="true" onclick="toggleMarkers('devotionalMeetings')" class="activity-input"><button class="btn activity-btn show-list" onclick="viewActivityDetail(event, 'devotionalMeetings')">Devotional Meetings: <span id="devotionalMeetingsCount"><%= @dm.nil? ? 0 : @dm.count %></span></button>
+    </div>
+    <div class="activity">
+      <input type="checkbox" checked="true" onclick="toggleMarkers('juniorYouthGroups')" class="activity-input"><button class="btn activity-btn show-list" onclick="viewActivityDetail(event, 'juniorYouthGroups')">Junior Youth Groups: <span id="juniorYouthGroupsCount"><%= @jy.nil? ? 0 : @jy.count %></span></button>
+    </div>
+    <div class="activity">
+      <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')" class="activity-input"><button class="btn activity-btn show-list" onclick="viewActivityDetail(event, 'studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.nil? ? 0 : @sc.count %></span></button>
+    </div>
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>Participants</th>
+          <th>Age Range</th>
+        </tr>
+      </thead>
+      <tbody id="childrenClassesTable"></tbody>
+    </table>
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>Participants</th>
+        </tr>
+      </thead>
+      <tbody id="devotionalMeetingsTable"></tbody>
+    </table>
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>Participants</th>
+        </tr>
+      </thead>
+      <tbody id="juniorYouthGroupsTable"></tbody>
+    </table>
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>Participants</th>
+          <th>Book</th>
+        </tr>
+      </thead>
+      <tbody id="studyCirclesTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="legend" class="map-legend"></div>
+
+<% if Rails.env.production? %>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH3gr943zfhEw8Q9QACFjzFZyzilYVSgs&callback=initMap" async defer></script>
+<% else %>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVvxpIcyct7YlySMNqy136sAaOXYbBuio&callback=initMap" async defer></script>
+<% end %>
+<script>
+function setActivities() {
+  var activities = [];
+  <% @clusteractivities.each do |activity|
+    @activity = activity %>
+    var newActivity = { position: new google.maps.LatLng(<%= activity.latitude %>, <%= activity.longitude %>),
+      type: '<%= @activity.activity_type.icon %>',
+      html: "<%= j(render :template => 'activities/show.html.erb',
+                    :locals => { :activity => @activity }) %>",
+      activityId: <%= @activity.id %> };
+    activities.push(newActivity);
+  <% end %>
+  return activities;
+}
+</script>

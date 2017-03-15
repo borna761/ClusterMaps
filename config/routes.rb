@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'home/index'
+
   devise_for :users, :controllers => {:registrations => "registrations"}
 #  get "activities" => "activities#index"
 #  get "activities/new" => "activities#new", as: "new_activity"
@@ -20,5 +22,5 @@ Rails.application.routes.draw do
   patch "/cluster_users" => "cluster_users#update"
   delete "/cluster_users" => "cluster_users#delete"
 
-  root "activities#index"
+  root "home#index"
 end
