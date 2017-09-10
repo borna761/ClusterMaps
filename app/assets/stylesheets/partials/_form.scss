@@ -37,6 +37,17 @@
   color: $color-content-light;
 }
 
+.form-object {
+  width: 100px;
+  display: inline-block;
+}
+
+.edit_activity {
+  div {
+    margin-bottom: 3px;
+  }
+}
+
 .form-input {
   font-size: 14px;
   color: $color-input;

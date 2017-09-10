@@ -2,53 +2,59 @@
 @activityIcon = @activity.activity_type.icon %>
 
 <div>
-  <strong>Activity:</strong>
+  <strong class="form-object">Activity:</strong>
   <%= @activityType %>
 </div>
 
 <div>
-  <strong>Host:</strong>
+  <strong class="form-object">Host:</strong>
   <%= @activity.hostedBy %>
 </div>
 
 <% if @activityIcon != 'devotionalMeetings' %>
+  <strong class="form-object">
   <% if @activityIcon == 'childrenClasses' %>
-    <strong>Teacher(s):</strong>
+    Teacher(s):
   <% elsif @activityIcon == 'studyCircles' %>
-    <strong>Tutor(s):</strong>
+    Tutor(s):
   <% else %>
-    <strong>Animator(s):</strong>
+    Animator(s):
   <% end %>
+  </strong>
   <%= @activity.teacherTutorAnimator %>
 <% end %>
 
 <div>
-  <strong>Meets every:</strong>
+  <strong class="form-object">Meets every:</strong>
   <% unless @activity.frequencyValue.nil? || @activity.frequencyUnit.nil? %>
     <%= @activity.frequencyValue %> <%= @activity.frequencyUnit.pluralize(@activity.frequencyValue) %>
   <% end %>
 </div>
 
 <div>
-  <strong>Participants:</strong>
+  <strong class="form-object">Participants:</strong>
   <%= @activity.participants %>
 </div>
 
-<% if @activityIcon == 'childrenClasses' || @activityIcon == 'studyCircles' %>
+<% if @activityIcon == 'childrenClasses' || @activityIcon == 'studyCircles' || @activityIcon == 'juniorYouthGroups' %>
   <div>
-  <% if @activityIcon == 'childrenClasses' %>
-    <strong>Age range:</strong>
-  <% else %>
-    <string>Book:</strong>
-  <% end %>
-  <%= @activity.uniquefield %>
+    <strong class="form-object">
+    <% if @activityIcon == 'childrenClasses' %>
+      Age range:
+    <% else %>
+      Book:
+    <% end %>
+    </strong>
+    <%= @activity.uniquefield %>
   </div>
 <% end %>
 
 <div>
-  <strong>Comments:</strong>
+  <strong class="form-object">Comments:</strong>
   <%= @activity.comments %>
 </div>
 
-<%= link_to 'Edit', edit_activity_path(@activity), :remote => true %>
+<br />
+
+<%= link_to 'Edit', edit_activity_path(@activity), :remote => true %><br />
 <%= link_to 'Delete', @activity, method: "delete", data: { confirm: 'Are you sure?' }, :remote => true %>
