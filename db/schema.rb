@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -30,9 +29,8 @@ ActiveRecord::Schema.define(version: 20160613201307) do
     t.integer  "cluster_id"
     t.integer  "frequencyValue"
     t.string   "frequencyUnit"
+    t.index ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
   end
-
-  add_index "activities", ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
 
   create_table "activity_types", force: :cascade do |t|
     t.string "name"
@@ -45,19 +43,17 @@ ActiveRecord::Schema.define(version: 20160613201307) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean  "default"
+    t.index ["cluster_id"], name: "index_cluster_users_on_cluster_id", using: :btree
+    t.index ["user_id"], name: "index_cluster_users_on_user_id", using: :btree
   end
-
-  add_index "cluster_users", ["cluster_id"], name: "index_cluster_users_on_cluster_id", using: :btree
-  add_index "cluster_users", ["user_id"], name: "index_cluster_users_on_user_id", using: :btree
 
   create_table "clusters", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "owner_id"
+    t.index ["owner_id"], name: "index_clusters_on_owner_id", using: :btree
   end
-
-  add_index "clusters", ["owner_id"], name: "index_clusters_on_owner_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -74,10 +70,9 @@ ActiveRecord::Schema.define(version: 20160613201307) do
     t.datetime "updated_at",                          null: false
     t.string   "firstname"
     t.string   "lastname"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "activities", "activity_types"
   add_foreign_key "cluster_users", "clusters"

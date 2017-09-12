@@ -222,16 +222,16 @@ function showHideUniqueField(activityCategory) {
     $(".uniquefieldDiv").show();
     $("#teacherTutorAnimatorDiv").show();
     if (activityCategory == 'childrenClasses') {
-      $("#uniquefieldLabel").text("Age range");
-      $("#teacherTutorAnimatorLabel").text("Teacher(s)");
+      $("#uniquefieldLabel").text("Age range:");
+      $("#teacherTutorAnimatorLabel").text("Teacher(s):");
     }
     else {
-      $("#uniquefieldLabel").text("Book");
+      $("#uniquefieldLabel").text("Book:");
       if (activityCategory == 'studyCircles') {
-        $("#teacherTutorAnimatorLabel").text("Tutor(s)");
+        $("#teacherTutorAnimatorLabel").text("Tutor(s):");
       }
       else {
-        $("#teacherTutorAnimatorLabel").text("Animator(s)");
+        $("#teacherTutorAnimatorLabel").text("Animator(s):");
       }
     }
   }

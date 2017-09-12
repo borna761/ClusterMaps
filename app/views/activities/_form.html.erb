@@ -1,35 +1,32 @@
 <%= form_for @activity, remote: true do |f| %>
   <div>
-    <%= f.label 'Host' %>
+    <%= f.label 'Host:', class: 'form-object' %>
     <%= f.text_field :hostedBy %>
   </div>
 
   <div id="teacherTutorAnimatorDiv">
-    <%= f.label 'TeacherTutorAnimator', id: 'teacherTutorAnimatorLabel' %>
+    <%= f.label 'TeacherTutorAnimator:', id: 'teacherTutorAnimatorLabel', class: 'form-object' %>
     <%= f.text_field :teacherTutorAnimator %>
   </div>
 
   <div>
-    <%= f.label 'Every' %>
+    <%= f.label 'Every', class: 'form-object' %>
     <%= f.select :frequencyValue, (0..10) %>
-  </div>
-
-  <div>
     <%= f.select :frequencyUnit, options_for_select(frequencyUnits, @activity.frequencyUnit) %>
   </div>
 
   <div>
-    <%= f.label 'Participants' %>
+    <%= f.label 'Participants:', class: 'form-object' %>
     <%= f.select :participants, (0..20) %>
   </div>
 
   <div class="uniquefieldDiv">
-    <%= f.label 'Unique Field', id: 'uniquefieldLabel' %>
+    <%= f.label 'Unique Field', id: 'uniquefieldLabel', class: 'form-object' %>
     <%= f.text_field :uniquefield %>
   </div>
 
   <div>
-    <%= f.label 'Comments:' %>
+    <%= f.label 'Comments:' %><br>
     <%= f.text_area :comments, cols: 60, rows: 7 %>
   <div>
 
