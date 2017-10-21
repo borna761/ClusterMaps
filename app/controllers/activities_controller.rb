@@ -64,7 +64,11 @@ class ActivitiesController < ApplicationController
 
   def stats
     activityType = params[:activityType]
-    @activities = @clusteractivities.joins(:activity_type).where("activity_types.icon" => activityType).order(:id) #ActivityType.find_by_icon(activityType).activities.order(:id)
+    if activityType == 'allActivities'
+      @activities = @clusteractivities
+    else
+      @activities = @clusteractivities.joins(:activity_type).where("activity_types.icon" => activityType).order(:id)
+    end
     respond_to do |format|
       format.html
       format.json { render json: @activities }
