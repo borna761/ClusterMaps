@@ -22,6 +22,10 @@
     // update the counter
     $("#" + activityCategory + "Count").html(activityArray[activityCategory].length);
 
+    // update the total counter
+    var totalCounter = $("#allActivitiesCount");
+    totalCounter.html(parseInt(totalCounter.html(), 10) + 1);
+
     // add a listener for the new marker
     marker.addListener('click', function() {
       openInfoWindow(
