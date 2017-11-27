@@ -136,21 +136,30 @@ function viewActivityDetail(event, activity) {
           var activityInformation = "";
           for (var key in result) {
             activityInformation += "<tr onclick=\"triggerMarker(" + result[key].id + ")\">";
-            activityInformation += "<td>";
-            activityInformation += result[key].hostedBy;
-            activityInformation += "</td>";
-            activityInformation += "<td>";
-            activityInformation += result[key].participants;
-            activityInformation += "</td>";
-            if (activity == 'childrenClasses') {
+            if (activity == "allActivities") {
+              iconKeys = (Object.keys(icons));
               activityInformation += "<td>";
-              activityInformation += result[key].uniquefield;
-              activityInformation += "<td>";
-            }
-            else if (activity == 'studyCircles') {
-              activityInformation += "<td>";
-              activityInformation += result[key].uniquefield;
+              activityInformation += icons[iconKeys[result[key].activity_type_id - 1]]['name'];
               activityInformation += "</td>";
+              activityInformation += "<td style='align: left;'>";
+              activityInformation += result[key].hostedBy;
+              activityInformation += "</td>";
+              activityInformation += "<td align='right'>";
+              activityInformation += result[key].participants;
+              activityInformation += "</td>";
+            }
+            else {
+              activityInformation += "<td>";
+              activityInformation += result[key].hostedBy;
+              activityInformation += "</td>";
+              activityInformation += "<td>";
+              activityInformation += result[key].participants;
+              activityInformation += "</td>";
+              if (activity == 'childrenClasses' || activity == 'studyCircles') {
+                activityInformation += "<td>";
+                activityInformation += result[key].uniquefield;
+                activityInformation += "<td>";
+              }
             }
             activityInformation += "</tr>";
           }

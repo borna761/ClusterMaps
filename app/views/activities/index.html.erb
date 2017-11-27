@@ -21,6 +21,9 @@
     <div class="activity">
       <input type="checkbox" checked="true" onclick="toggleMarkers('studyCircles')" class="activity-input"><button class="btn activity-btn show-list" onclick="viewActivityDetail(event, 'studyCircles')">Study Circles: <span id="studyCirclesCount"><%= @sc.nil? ? 0 : @sc.count %></span></button>
     </div>
+    <div class="activity">
+      <button class="btn activity-btn show-list" onclick="viewActivityDetail(event, 'allActivities')">Total: <span id="allActivitiesCount"><%= @clusteractivities.nil? ? 0 : @clusteractivities.count %></span></button>
+    </div>
     <table class="activity-table">
       <thead>
         <tr>
@@ -58,6 +61,16 @@
         </tr>
       </thead>
       <tbody id="studyCirclesTable"></tbody>
+    </table>
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Host</th>
+          <th>Participants</th>
+        </tr>
+      </thead>
+      <tbody id="allActivitiesTable"></tbody>
     </table>
   </div>
 </div>
