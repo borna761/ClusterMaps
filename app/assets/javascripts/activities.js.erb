@@ -210,12 +210,14 @@ function toggleMarkers(category) {
 function changeIcon() {
   var activityCategorySelection = $("#activity_activity_type_id").val();
   if (activityCategorySelection != "") {
+    // activity selected, change the icon and show the unique field
     activityCategory = activityKeys[activityCategorySelection - 1]
     activityIcon = icons[activityCategory].icon;
     tempMarker.setIcon(activityIcon);
     $("#submitButton").prop('disabled', false);
     showHideUniqueField(activityCategory);
   } else {
+    // activity cleared, hide everything
     activityCategory = "";
     tempMarker.setIcon(newIcon);
     $("#submitButton").prop('disabled', true);
@@ -225,7 +227,8 @@ function changeIcon() {
 
 function showHideUniqueField(activityCategory) {
   if (activityCategory == 'devotionalMeetings') {
-      $("#teacherTutorAnimatorDiv").hide();
+    // no special field for devotional meetings
+      $(".uniquefieldDiv").hide();
     }
   else {
     $(".uniquefieldDiv").show();
