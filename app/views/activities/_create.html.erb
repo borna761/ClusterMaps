@@ -5,23 +5,25 @@
   <% else %>
 
     <div>
-      <%= f.label 'Activity type' %>
+      <%= f.label 'Activity:', class: 'form-object' %>
       <%= f.collection_select :activity_type_id, ActivityType.order(:name), :id, :name, {include_blank: true}, {class: 'form-field', onchange: 'javascript:changeIcon();'} %>
     </div>
 
     <div>
-      <%= f.label 'Host' %>
+      <%= f.label 'Host:', class: 'form-object' %>
       <%= f.text_field :hostedBy %>
     </div>
 
     <div class="uniquefieldDiv">
-      <%= f.label 'Unique Field', id: 'uniquefieldLabel' %>
+      <%= f.label 'Unique Field', id: 'uniquefieldLabel', class: 'form-object' %>
       <%= f.text_field :uniquefield %>
     </div>
 
     <%= f.hidden_field :longitude %>
     <%= f.hidden_field :latitude %>
     <%= f.hidden_field :cluster_id %>
+
+    <br />
 
     <%= f.submit 'Add new activity', disabled: true, id: 'submitButton' %>
 
