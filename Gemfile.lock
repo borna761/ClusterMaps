@@ -94,7 +94,7 @@ GEM
     orm_adapter (0.5.0)
     pg (0.21.0)
     pg (0.21.0-x86-mingw32)
-    rack (2.0.3)
+    rack (2.2.3)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.5)
